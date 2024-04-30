@@ -1,0 +1,14 @@
+<div class="toolbar" role="banner">
+ 
+  <div class="menu">
+      <button [class.selected]="selectedComponent === 'SUMMARY'"(click)="showComponent('SUMMARY')" routerLink="/Resumen"type="submit">
+        <span class="button-text">{{'TOTAL'| translate}}</span>
+      </button>
+      <button [class.selected]="selectedComponent === 'ORDER_TRACKING_LIST'"(click)="showComponent('ORDER_TRACKING_LIST')" routerLink="/OrderTrackingList" type="submit">
+        <span class="button-text">{{'DIARIO'| translate}}</span>
+      </button>
+      <button class="language-button" (click)="onLanguageChange()">
+        {{ currentLanguage === 'es' ? 'Castellano' : 'English' }}
+      </button>
+  </div>
+</div>

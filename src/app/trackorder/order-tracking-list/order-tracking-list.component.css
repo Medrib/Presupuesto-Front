@@ -1,0 +1,44 @@
+
+input[type="text"]{
+  width:120px;
+  height: 25px; 
+}
+.ng-container {
+  white-space: nowrap;
+  width: 100%;
+}
+.grilla-container {
+  width: 100%;
+  overflow-x: auto;
+  position: relative;
+  white-space: nowrap;
+}
+
+.header-cell {
+  white-space: nowrap;
+}
+
+.header-content {
+  display: flex;
+  align-items: center; 
+}
+
+.header-content mat-icon {
+  margin-left: 4px;
+}
+mat-icon.active {
+  color: #00bcd4; 
+}
+
+.search-icon {
+  cursor: pointer;
+  margin-top: 2px;
+}
+.search-input {
+  margin-right: 22px; 
+  margin-right: 12px;
+}
+
+
+
+

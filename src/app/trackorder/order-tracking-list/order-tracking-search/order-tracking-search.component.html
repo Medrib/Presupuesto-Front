@@ -1,0 +1,15 @@
+<div class="button-container">
+    <input type="text" 
+           class="regular-input" 
+           placeholder="N° Material"
+           [(ngModel)]="material" 
+           [ngModelOptions]="{ standalone: true }" 
+           (focus)="focusedInput = 'N° Material'">
+    <button class="search-button"
+           (click)="onSearchButtonClick()">
+       <mat-icon class="search-icon">search</mat-icon>
+             <span>{{'SEARCH'| translate}}</span>
+    </button>
+
+</div>
+

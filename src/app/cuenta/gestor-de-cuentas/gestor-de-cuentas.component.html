@@ -1,0 +1,2 @@
+<button (click)="togglePopup()">Agregar cuenta</button>
+<app-popup *ngIf="popupVisible" (optionSelected)="handleOptionSelected($event)"></app-popup>

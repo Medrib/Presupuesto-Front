@@ -1,0 +1,24 @@
+<form (ngSubmit)="guardarGasto()" class="formulario">
+    <div class="campo">
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" name="fecha" [(ngModel)]="nuevoGasto.fecha" required>
+    </div>
+    <div class="campo">
+        <label for="importe">Importe:</label>
+        <input type="text" id="importe" name="importe" [(ngModel)]="nuevoGasto.importe">
+    </div>
+    <div class="campo">
+        <label for="categoria">Categoría:</label>
+        <input type="text" id="categoria" name="categoria" [(ngModel)]="nuevoGasto.categoria" required (focus)="abrirCuenta()">
+    </div>
+    <div class="campo">
+        <label for="cuenta">Cuenta:</label>
+        <input type="text" id="cuenta" name="cuenta" [(ngModel)]="nuevoGasto.cuenta" required (focus)="abrirCategoria()">
+    </div>
+    <div class="campo">
+        <label for="nota">Nota:</label>
+        <textarea id="nota" name="nota" [(ngModel)]="nuevoGasto.nota"></textarea>
+    </div>
+    <button type="submit">Guardar</button>
+</form>
+

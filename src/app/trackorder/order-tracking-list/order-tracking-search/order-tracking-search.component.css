@@ -1,0 +1,35 @@
+.button-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 25px;
+}
+
+.regular-input {
+    padding: 10px 10px;
+    height: 30px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.search-button {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 8px 20px;
+    height: 30px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.search-icon {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.search-button i {
+    margin-right: 5px;
+}
