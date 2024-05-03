@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { OrderService } from '../trackorder/order-service/order-service.service';
-import { AgregarIngresoRequest } from '../Interface/agregarIngresoRequest';
+import { OrderService } from '../../../order-service/order-service.service';
+import { AgregarIngresoRequest } from '../../../../Interface/agregarIngresoRequest';
 import { tap } from 'rxjs';
 
 @Component({
@@ -27,7 +27,6 @@ export class IngresoComponent {
       IDPresupuesto : 1
     };
     return this.orderService.postIngreso(data).pipe(
-      tap(data => console.log('Datos recibidos de postIngreso:', data))
     ).subscribe(
       response => {
       },
@@ -37,8 +36,3 @@ export class IngresoComponent {
     );
   }
 }
-  
-
-
-
-

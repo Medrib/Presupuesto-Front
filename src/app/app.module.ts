@@ -27,10 +27,11 @@ import { CuentaComponent } from './cuenta/cuenta.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GestorDeCuentasComponent } from './cuenta/gestor-de-cuentas/gestor-de-cuentas.component';
 import { TransferenciaComponent } from './trackorder/Gasto/nuevo-gasto/transferencia/transferencia.component';
-import { IngresoComponent } from './ingreso/ingreso.component';
+import { IngresoComponent } from './trackorder/Gasto/nuevo-gasto/ingreso/ingreso.component';
 import { CategoriaComponent } from './categoria/categoria.component';
 import { CategoriaDeGastosComponent } from './categoria-de-gastos/categoria-de-gastos.component';
 import { PopupComponent } from './cuenta/popup/popup.component';
+import { MatFormFieldModule } from '@angular/material/form-field'; // Importa MatFormFieldModule
 
 
 
@@ -68,6 +69,7 @@ import { PopupComponent } from './cuenta/popup/popup.component';
     FormsModule,
     HttpClientModule,
     MatDialogModule,
+    MatFormFieldModule,
     TranslateModule.forRoot({
         loader: {
             provide: TranslateLoader,

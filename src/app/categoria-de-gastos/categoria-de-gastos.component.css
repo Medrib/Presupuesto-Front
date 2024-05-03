@@ -1,0 +1,37 @@
+.campo {
+    margin-bottom: 15px;
+}
+
+.campo label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.campo input[type="text"] {
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-weight: bold;
+    width: 200px;
+    box-sizing: border-box;
+}
+
+.botones-container {
+    text-align: center;
+}
+
+button {
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-weight: bold;
+    color: white;
+    background-color: #0366d6;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+button:hover {
+    background-color: #0459bd;
+}
+

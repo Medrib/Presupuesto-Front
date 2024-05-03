@@ -21,12 +21,13 @@ textarea {
 }
 
 .formulario {
-    margin: 20px;
+    margin: 20px 20px 20px 10px;
 }
 
 .campo {
     margin-bottom: 15px;
 }
+
 
 label {
     display: block;
