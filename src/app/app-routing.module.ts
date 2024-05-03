@@ -9,7 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { GastoComponent } from './trackorder/Gasto/nuevo-gasto/gasto/gasto.component';
 import { GestorDeCuentasComponent } from './cuenta/gestor-de-cuentas/gestor-de-cuentas.component';
 import { TransferenciaComponent } from './trackorder/Gasto/nuevo-gasto/transferencia/transferencia.component';
-import { IngresoComponent } from './ingreso/ingreso.component';
+import { IngresoComponent } from './trackorder/Gasto/nuevo-gasto/ingreso/ingreso.component';
 import { CategoriaComponent } from './categoria/categoria.component';
 import { CategoriaDeGastosComponent } from './categoria-de-gastos/categoria-de-gastos.component';
 

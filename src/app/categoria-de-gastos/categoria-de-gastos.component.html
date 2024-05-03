@@ -1,1 +1,7 @@
-<p>categoria-de-gastos works!</p>
+<div class="campo">
+    <label for="importe">Categoria:</label>
+    <input type="text" id="importe" name="importe" [(ngModel)]="categoria" (input)="validarCategoria()">
+</div>
+<div class="botones-container">
+    <button type="button" [disabled]="!categoria" (click)="agregarCategoria()">Agregar Categoría</button>
+</div>

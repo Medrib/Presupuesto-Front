@@ -1,3 +1,8 @@
+<!-- <div *ngIf="abrirPopupCategoria">
+    <app-categoria (categoriaSeleccionada)="llegaCategoria($event)"></app-categoria>
+</div> -->
+
+
 <form (ngSubmit)="guardarGasto()" class="formulario">
     <div class="campo">
         <label for="fecha">Fecha:</label>
@@ -8,12 +13,12 @@
         <input type="text" id="importe" name="importe" [(ngModel)]="nuevoGasto.importe">
     </div>
     <div class="campo">
-        <label for="categoria">Categoría:</label>
-        <input type="text" id="categoria" name="categoria" [(ngModel)]="nuevoGasto.categoria" required (focus)="abrirCuenta()">
+        <label for="categoria">Categoria:</label>
+        <input type="text" id="categoria" name="categoria" [(ngModel)]="nuevoGasto.categoria" required (click)="abrirCategoria()">
     </div>
     <div class="campo">
         <label for="cuenta">Cuenta:</label>
-        <input type="text" id="cuenta" name="cuenta" [(ngModel)]="nuevoGasto.cuenta" required (focus)="abrirCategoria()">
+        <input type="text" id="cuenta" name="cuenta" [(ngModel)]="nuevoGasto.cuenta" required (click)="abrirCuenta()">
     </div>
     <div class="campo">
         <label for="nota">Nota:</label>

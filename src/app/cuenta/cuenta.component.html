@@ -1,8 +1,16 @@
 <mat-dialog-content>
-    <a routerLink="/categoria" (click)="cerrarYIr()">
-        <mat-icon>create</mat-icon> <!-- Icono de lápiz -->
+  <ng-container *ngIf="mostrarLapiz; else nuevoValorContent">
+    <a (click)="abrirNuevoDialogo()" style="cursor: pointer;">
+      <mat-icon>create</mat-icon> 
     </a>
+    <mat-dialog-actions align="end">
+      <button mat-button (click)="cerrarPopup()">Cerrar</button>
+    </mat-dialog-actions>
+  </ng-container>
+  <ng-template #nuevoValorContent>
+      <input matInput placeholder="Ingrese una categoria" [(ngModel)]="categoria">
+    <mat-dialog-actions align="end">
+      <button mat-button (click)="guardarValor()">Guardar</button>
+    </mat-dialog-actions>
+  </ng-template>
 </mat-dialog-content>
-  <mat-dialog-actions align="end">
-    <button mat-button (click)="cerrarYIr()">Cerrar</button>
-  </mat-dialog-actions>

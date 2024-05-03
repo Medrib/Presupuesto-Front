@@ -24,15 +24,13 @@ export class TransferenciaComponent {
   guardarGasto() { }
   abrirCalculadora() { }
 
- diálogoAbierto: boolean = false;
+  diálogoAbierto: boolean = false;
 
-abrirCuenta(): void {
-  if (!this.diálogoAbierto) {
-    this.diálogoAbierto = true;
-    const dialogRef = this.dialog.open(CuentaComponent, {
-      width: '400px', // Ancho del popup
-    }); 
-  }}
-
-  abrirCategoria() { }
+  abrirCuenta(): void {
+    if (!this.diálogoAbierto) {
+      this.diálogoAbierto = true;
+      const dialogRef = this.dialog.open(CuentaComponent, {
+        width: '400px', // Ancho del popup
+      }); 
+    }}
 }
