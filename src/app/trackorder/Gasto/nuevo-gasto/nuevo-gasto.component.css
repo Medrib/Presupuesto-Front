@@ -1,13 +1,16 @@
+.contenedor-botones{
+    margin: 20px;
+}
 .custom-button {
     border: none;
-    border-radius: 15px; /* Valor intermedio para bordes redondos */
+    border-radius: 15px;
     padding: 10px 20px;
-    background-color: blue; /* Color de fondo azul */
-    color: white; /* Color de texto blanco */
+    background-color: blue;
+    color: white;
     font-weight: bold;
 }
 
 .custom-button:hover {
-    background-color: darkblue; /* Cambia el color de fondo al pasar el ratón */
+    background-color: darkblue;
     cursor: pointer;
 }
