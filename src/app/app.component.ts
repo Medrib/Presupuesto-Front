@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { GridOptions } from 'ag-grid-community';
+// import { GridOptions } from 'ag-grid-community';
 
 @Component({
   selector: 'app-root',
