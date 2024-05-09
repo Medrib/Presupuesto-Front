@@ -8,7 +8,7 @@ import { Categoria } from '../Interface/Categoria';
 @Component({
   selector: 'app-categoria',
   templateUrl: './categoria.component.html',
-  styleUrls: ['./categoria.component.css']
+  styleUrls: ['./categoria.component.css'],
 })
 export class CategoriaComponent implements OnInit {
   mostrarLapiz: boolean = true;
@@ -16,7 +16,10 @@ export class CategoriaComponent implements OnInit {
   categorias: Categoria[] = [];
   categoriaNueva!: AgregarCategoriaRequest;
 
-  constructor(public dialogRef: MatDialogRef<CategoriaComponent>, private orderService: OrderService) {}
+  constructor(
+    public dialogRef: MatDialogRef<CategoriaComponent>,
+    private orderService: OrderService
+  ) {}
 
   ngOnInit(): void {
     this.MostrarCategoria();
@@ -33,29 +36,31 @@ export class CategoriaComponent implements OnInit {
   guardarValor() {
     this.mostrarLapiz = true;
     this.categoriaNueva = {
-      nombre: this.categoria
+      nombre: this.categoria,
     };
-    return this.orderService.insertCategory(this.categoriaNueva).pipe(
-      tap(data => {})
-    ).subscribe(
-      response => {
-      },
-      error => {
-        console.error('Error al llamar al Servicio:', error);
-      }
-    );
+    return this.orderService
+      .insertCategory(this.categoriaNueva)
+      .pipe(tap((data) => {}))
+      .subscribe(
+        (response) => {},
+        (error) => {
+          console.error('Error al llamar al Servicio:', error);
+        }
+      );
   }
 
   MostrarCategoria() {
-    this.orderService.getCategories().pipe(
-    ).subscribe(
-      (categorias: Categoria[]) => {
-        this.categorias = categorias;
-      },
-      error => {
-        console.error('Error al llamar al Servicio:', error);
-      }
-    );
+    this.orderService
+      .getCategories()
+      .pipe()
+      .subscribe(
+        (categorias: Categoria[]) => {
+          this.categorias = categorias;
+        },
+        (error) => {
+          console.error('Error al llamar al Servicio:', error);
+        }
+      );
   }
 
   seleccionarCategoria(categoria: Categoria): void {
