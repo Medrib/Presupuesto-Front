@@ -6,6 +6,7 @@ import { OrderService } from 'src/app/trackorder/order-service/order-service.ser
 import { tap } from 'rxjs/operators';
 import { AgregarGastoRequest } from 'src/app/Interface/agregarGastoRequest';
 import { Categoria } from 'src/app/Interface/Categoria';
+import { cuentaDatos } from 'src/app/Interface/obtenerCuenta';
 
 @Component({
   selector: 'app-gasto',
@@ -24,7 +25,15 @@ export class GastoComponent implements OnInit, OnDestroy {
         this.llegaCategoria(categoria);
       }
     );
+
+    this.categoriaSubscription = this.orderService.envioCuenta$.subscribe(
+      (cuentas: cuentaDatos) => {
+        this.llegaCuenta(cuentas);
+      }
+    );
   }
+
+  
 
   ngOnDestroy(): void {
     this.categoriaSubscription.unsubscribe();
@@ -74,5 +83,9 @@ export class GastoComponent implements OnInit, OnDestroy {
   
   llegaCategoria(categoria: Categoria): void {
     this.nuevoGasto.categoria = categoria.nombre;
+  }
+
+  llegaCuenta(cuentas: cuentaDatos): void {
+    this.nuevoGasto.cuenta = cuentas.nombre;
   }
 }
