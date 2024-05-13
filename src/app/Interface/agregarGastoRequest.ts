@@ -8,3 +8,7 @@ export interface AgregarGastoRequest {
     IDPresupuesto: number;
     IDCategoriaGasto: number;
 }
+
+export interface eliminarGastoRequest{
+    IDGasto: number;
+}
