@@ -5,7 +5,6 @@ import { Gastos } from 'src/app/Gastos';
 import { Filters } from 'src/app/filter';
 import { Sorting } from 'src/app/sort';
 import { Pagination } from 'src/app/Interface/Pagination';
-import { categoriaGasto } from 'src/app/Interface/categoriaGasto';
 import { AgregarGastoRequest } from 'src/app/Interface/agregarGastoRequest';
 import { AgregarIngresoRequest } from 'src/app/Interface/agregarIngresoRequest';
 import { AgregarCategoriaRequest } from 'src/app/Interface/agregarCategoriaRequest';
