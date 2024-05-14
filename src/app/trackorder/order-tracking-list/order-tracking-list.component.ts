@@ -59,7 +59,7 @@ export class OrderTrackingListComponent implements OnInit {
   ascendingIconVisible: boolean | null = null;
   valor: any;
   searchKeywords: { [column: string]: string } = {};
-  displayedColumns: string[] = ['CategoriaDeGastos', 'Monto', 'Descripcion', 'Fecha'];
+  displayedColumns: string[] = ['CategoriaDeGastos', 'Monto', 'Descripcion', 'Fecha', 'Editar o Eliminar'];
   activeColumnStates: { [key: string]: boolean } = {};
   isLoading: any;
   pagingData!: Pagination;
@@ -186,11 +186,31 @@ export class OrderTrackingListComponent implements OnInit {
     const formattedDate = order.fecha ? new Date(order.fecha).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '';
 
     return {
+      id :order.idGasto,
       CategoriaDeGastos: order.categoriaGasto?.nombre,
       Monto: order.monto,
       Descripcion: order.descripcion,
       Fecha: formattedDate,
     };
+  }
+
+  editar(element: ColumnsTrackOrderList): void {
+    
+    console.log('Editar:', element);
+  }
+
+
+
+  eliminar(element: ColumnsTrackOrderList): void {
+    const idGasto = element.id;
+    this.orderService.eliminarGasto(idGasto).subscribe(
+      () => {
+        console.log('Gasto eliminado correctamente');
+      },
+      error => {
+        console.error('Error al eliminar el gasto', error);
+      }
+    );
   }
  
 }

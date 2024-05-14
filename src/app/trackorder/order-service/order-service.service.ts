@@ -129,4 +129,11 @@ export class OrderService {
       'https://localhost:7026/gastos/getCuenta'
     );
   }
+
+  eliminarGasto(idGasto: number): Observable<{ data: string }> {
+    return this.http.delete<{ data: string }>(
+      `https://localhost:7026/gastos/delete/${idGasto}`
+    );
+  }
+  
 }
