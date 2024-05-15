@@ -59,7 +59,7 @@ export class OrderTrackingListComponent implements OnInit {
   ascendingIconVisible: boolean | null = null;
   valor: any;
   searchKeywords: { [column: string]: string } = {};
-  displayedColumns: string[] = ['CategoriaDeGastos', 'Monto', 'Descripcion', 'Fecha', 'Editar o Eliminar'];
+  displayedColumns: string[] = ['CategoriaDeGastos', 'Monto','cuenta', 'Descripcion', 'Fecha', 'Editar o Eliminar'];
   activeColumnStates: { [key: string]: boolean } = {};
   isLoading: any;
   pagingData!: Pagination;
@@ -167,7 +167,7 @@ export class OrderTrackingListComponent implements OnInit {
     };
   
     return this.orderService.getDataFromServer(filtrado, orderBy, paginationRequest).pipe(
-      map(response => {
+      map(response => { 
         const secondSearchResult = response.data;
         const secondSearchArray: Gastos[] = Array.isArray(secondSearchResult) ? secondSearchResult : [secondSearchResult];
         this.totalItems = response.totalItems;
@@ -185,9 +185,10 @@ export class OrderTrackingListComponent implements OnInit {
   private mapOrderToColumnsTrackOrderList(order: Gastos): ColumnsTrackOrderList {
     const formattedDate = order.fecha ? new Date(order.fecha).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '';
 
-    return {
+    return { 
       id :order.idGasto,
       CategoriaDeGastos: order.categoriaGasto?.nombre,
+      cuenta:order.cuenta?.nombre,
       Monto: order.monto,
       Descripcion: order.descripcion,
       Fecha: formattedDate,
