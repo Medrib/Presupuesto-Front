@@ -16,10 +16,14 @@ import { cuentaDatos } from 'src/app/Interface/obtenerCuenta';
 export class GastoComponent implements OnInit, OnDestroy {
   categoria!: Categoria;
   categoriaSubscription: any;
+  categorias: Categoria[] | undefined;
+  obtenerCuenta: cuentaDatos[] | undefined;
 
   constructor(private dialog: MatDialog, public orderService: OrderService) {}
 
   ngOnInit(): void {
+    this.MostrarCategoria();
+    this.MostrarCuenta();
     this.categoriaSubscription = this.orderService.envioCategoria$.subscribe(
       (categoria: Categoria) => {
         this.llegaCategoria(categoria);
@@ -32,8 +36,6 @@ export class GastoComponent implements OnInit, OnDestroy {
       }
     );
   }
-
-  
 
   ngOnDestroy(): void {
     this.categoriaSubscription.unsubscribe();
@@ -67,13 +69,13 @@ export class GastoComponent implements OnInit, OnDestroy {
       );
   }
 
-  abrirCategoria(): void {
-    if (!this.dialog.openDialogs.length) {
-      this.dialog.open(CategoriaComponent, {
-        width: '400px'
-      });
-    }
-  }
+  // abrirCategoria(): void {
+  //   if (!this.dialog.openDialogs.length) {
+  //     this.dialog.open(CategoriaComponent, {
+  //       width: '400px'
+  //     });
+  //   }
+  // }
 
   abrirCuenta(): void {
     const dialogRef = this.dialog.open(CuentaComponent, {
@@ -88,4 +90,37 @@ export class GastoComponent implements OnInit, OnDestroy {
   llegaCuenta(cuentas: cuentaDatos): void {
     this.nuevoGasto.cuenta = cuentas.nombre;
   }
+  MostrarCategoria() {
+    this.orderService
+      .getCategories()
+      .pipe()
+      .subscribe(
+        (categorias: Categoria[]) => {
+          this.categorias = categorias;
+        },
+        (error) => {
+          console.error('Error al llamar al Servicio:', error);
+        }
+      );
+  }
+
+  MostrarCuenta() {
+    this.orderService
+      .getCuenta()
+      .pipe()
+      .subscribe(
+        (cuenta: cuentaDatos[]) => {
+          this.obtenerCuenta = cuenta;
+        },
+        (error) => {
+          console.error('Error al llamar al Servicio:', error);
+        }
+      );
+  }
+  seleccionarCategoria(categoria: Categoria): void {
+    console.log(categoria,'llego aca)')
+    // this.cerrarPopup();
+    this.orderService.envioCategoria(categoria);
+  }
+
 }
