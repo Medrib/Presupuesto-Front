@@ -12,14 +12,29 @@
         <label for="importe">Importe:</label>
         <input type="text" id="importe" name="importe" [(ngModel)]="nuevoGasto.importe">
     </div>
+
+
     <div class="campo">
         <label for="categoria">Categoria:</label>
-        <input type="text" id="categoria" name="categoria" [(ngModel)]="nuevoGasto.categoria" required (click)="abrirCategoria()">
+        <select id="categoria" name="categoria" [(ngModel)]="nuevoGasto.categoria">
+            <option value="">Categoría</option>
+            <option *ngFor="let categoria of categorias" (click)="seleccionarCategoria(categoria)" style="cursor: pointer">{{ categoria.nombre }}</option>
+        </select>
     </div>
+        
+   
+    
+    
+
     <div class="campo">
         <label for="cuenta">Cuenta:</label>
-        <input type="text" id="cuenta" name="cuenta" [(ngModel)]="nuevoGasto.cuenta" required (click)="abrirCuenta()">
+        <select id="cuenta" name="cuenta" [(ngModel)]="nuevoGasto.cuenta">
+            <option value="">Cuenta</option>
+            <option *ngFor="let cuenta of obtenerCuenta" [value]="cuenta">{{ cuenta.nombre }}</option>
+        </select>
     </div>
+
+   
     <div class="campo">
         <label for="nota">Nota:</label>
         <textarea id="nota" name="nota" [(ngModel)]="nuevoGasto.nota"></textarea>

@@ -24,6 +24,7 @@ export class OrderService {
   constructor(private http: HttpClient) {}
 
   envioCategoria(categoria: Categoria): void {
+    console.log(categoria,'categoria')
     this.envioCategoria$.next(categoria);
   }
 
