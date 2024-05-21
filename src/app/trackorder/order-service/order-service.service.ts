@@ -162,21 +162,8 @@ export class OrderService {
       `https://localhost:7026/gastos/delete/${idGasto}`
     );
   } 
-  
-  
-  // obtenerGasto(id: number): Observable<ColumnsTrackOrderList> {
-  //   console.log("gastos cargados", id)
-  //   return this.http.get<ColumnsTrackOrderList>(`${this.apiUrl}/${id}`);
-  // }
 
   obtenerGasto(): Observable<gastosRequest[]> {
     return this.http.get<gastosRequest[]>('https://localhost:7026/gastos');
-  }
-
-
-  // editarGasto(gasto: ColumnsTrackOrderList): Observable<ColumnsTrackOrderList> {
-  //   return this.http.put<ColumnsTrackOrderList>(`${this.apiUrl}/${gasto.id}`, gasto);
-  // }
-
-  
+  }  
 }

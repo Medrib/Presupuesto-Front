@@ -37,13 +37,9 @@
 </div>
 
 <div class="paginator-container">
-  <mat-paginator
-    [pageSizeOptions]="[5, 10, 15, 20]"
-    showFirstLastButtons
-    aria-label="Seleccionar página de elementos periódicos"
-    [length]="totalItems"
-    [pageSize]="pageSize"
-    [pageIndex]="pageIndex - 1"
-    (page)="onPageChange($event)">
+  <mat-paginator [length]="totalItems"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="[5, 10, 20, 100]"
+                 (page)="onPageChange($event)">
   </mat-paginator>
 </div>
