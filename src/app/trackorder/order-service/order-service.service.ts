@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError, Subject, elementAt } from 'rxjs';
+import { BehaviorSubject, Observable, throwError, Subject, elementAt, tap } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Gastos } from 'src/app/Gastos';
 import { Filters } from 'src/app/filter';
@@ -12,7 +12,7 @@ import { Categoria } from 'src/app/Interface/Categoria';
 import { cuentaDatos } from 'src/app/Interface/obtenerCuenta';
 import { ColumnsTrackOrderList } from 'src/app/Interface/columns-track-order-list';
 import { GastoComponent } from '../Gasto/nuevo-gasto/gasto/gasto.component';
-
+import { categoriaGasto } from 'src/app/Interface/categoriaGasto';
 
 @Injectable({
   providedIn: 'root',
@@ -72,6 +72,31 @@ export class OrderService {
       { params }
     );
   }
+  
+  getDataFromCategoria(
+    filters: Filters,
+    sorting: Sorting,
+    pagination: Pagination
+  ): Observable<{ data: categoriaGasto[]; totalItems: number }> {
+    const params = new HttpParams({
+      fromObject: {
+        ...filters,
+        ...sorting,
+        ...pagination,
+      },
+    });
+  
+    console.log('Request Params:', params.toString());
+  
+    return this.http.get<{ data: Categoria[], totalItems: number }>(
+      'https://localhost:7026/gastos/getCategory',
+      { params }
+    ).pipe(
+      tap((response: any) => console.log('Response from service:', response))
+    );
+    
+  }
+  
 
   getCountOrders(filters: Filters): Observable<{ data: number }> {
     const params = new HttpParams({
@@ -112,7 +137,7 @@ export class OrderService {
       categoria
     );
   }
-
+  
   getCategories(): Observable<Categoria[]> {
     return this.http.get<Categoria[]>(
       'https://localhost:7026/gastos/getCategory'

@@ -37,6 +37,7 @@ export class CategoriaComponent implements OnInit {
     this.mostrarLapiz = true;
     this.categoriaNueva = {
       nombre: this.categoria,
+      descripcion: this.categoria
     };
     return this.orderService
       .insertCategory(this.categoriaNueva)

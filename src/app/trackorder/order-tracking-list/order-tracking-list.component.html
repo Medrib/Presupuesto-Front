@@ -39,7 +39,7 @@
           <button
             *ngIf="column === 'Editar o Eliminar'"
             mat-icon-button
-            (click)="editarPopup(element)" class="custom-button">
+            (click)="editarPopup(element)" mat-icon-button class="custom-button custom-edit-button">
 
             <mat-icon >create</mat-icon>
           </button>
@@ -47,7 +47,7 @@
           <button
             *ngIf="column === 'Editar o Eliminar'"
             mat-icon-button
-            (click)="eliminar(element)" class="custom-button">
+            (click)="eliminar(element)" mat-icon-button class="custom-button custom-delete-button">
 
             <mat-icon >delete</mat-icon>
           </button>

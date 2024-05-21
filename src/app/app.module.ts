@@ -33,7 +33,6 @@ import { CategoriaDeGastosComponent } from './categoria-de-gastos/categoria-de-g
 import { PopupComponent } from './cuenta/popup/popup.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { PopupEditarComponent } from './popup-editar/popup-editar.component';
-import { NuevaclearComponent } from './nuevaclear/nuevaclear.component';
 
 
 
@@ -59,7 +58,6 @@ import { NuevaclearComponent } from './nuevaclear/nuevaclear.component';
     CategoriaDeGastosComponent,
     PopupComponent,
     PopupEditarComponent,
-    NuevaclearComponent,
   
   ],
   imports: [

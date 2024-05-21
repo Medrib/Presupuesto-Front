@@ -6,3 +6,14 @@ export interface ColumnsTrackOrderList {
     Descripcion: string;
     Fecha: string | null;
 }
+
+export interface ColumnsCategoria {
+    idCategoriaGasto: number,
+    Nombre: string;
+    Descripcion: string;
+}
+
+export interface AgregarCategoriaRequest {
+    Nombre: string;
+    Descripcion: string;
+  }
