@@ -1,13 +1,21 @@
-<form>
-    <h1>Editar datos guardados</h1>
-    
-    <ng-container *ngIf="gasto">
-        <p>monto: {{ gasto.Monto }}</p>
-        <p>fecha: {{ gasto.Fecha }}</p>
-        <p>descripcion: {{ gasto.Descripcion }}</p>
-      </ng-container>
-    
-    <button type="submit" (click)="MostrarGastos()">Mostrar gastos!</button>
-    <button type="button" (click)="cerrarPopup()">Cerrar</button>
-  </form>
-  
+
+
+<label>CategoriaDeGastos:</label>
+<input type="text" [(ngModel)]="data.gasto.CategoriaDeGastos" />
+<br>
+<label>Monto:</label>
+<input type="number" [(ngModel)]="data.gasto.Monto" />
+<br>
+<label>cuenta:</label>
+<input type="text" [(ngModel)]="data.gasto.cuenta" />
+<br>
+<label>Descripcion:</label>
+<input type="text" [(ngModel)]="data.gasto.Descripcion" />
+<br>
+<label>Fecha:</label>
+<input type="text" [(ngModel)]="data.gasto.Fecha" />
+<br>
+
+<button mat-button [mat-dialog-close]="gasto" cdkFocusInitial>Cerrar</button>
+<button type="button" (click)="guardarCambios()">Guardar Cambios</button>
+

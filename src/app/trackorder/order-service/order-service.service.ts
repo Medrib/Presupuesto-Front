@@ -14,6 +14,7 @@ import { ColumnsTrackOrderList } from 'src/app/Interface/columns-track-order-lis
 import { GastoComponent } from '../Gasto/nuevo-gasto/gasto/gasto.component';
 import { categoriaGasto } from 'src/app/Interface/categoriaGasto';
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -161,8 +162,15 @@ export class OrderService {
     return this.http.delete<{ data: string }>(
       `https://localhost:7026/gastos/delete/${idGasto}`
     );
-  } 
 
+  }
+  editarGasto(datos: Gastos): Observable<string> {
+    return this.http.put<string>(
+      `https://localhost:7026/gastos/editarGasto`,
+      datos
+    );
+  }
+  } 
   obtenerGasto(): Observable<gastosRequest[]> {
     return this.http.get<gastosRequest[]>('https://localhost:7026/gastos');
   }  
