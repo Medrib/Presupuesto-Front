@@ -1,0 +1,39 @@
+form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-top: 10px;
+  }
+  
+  input {
+    margin-bottom: 10px;
+    border-radius: 8px; /* Esquinas redondeadas para los inputs */
+    padding: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  button {
+    margin-top: 20px;
+    border-radius: 8px; /* Botones redondeados */
+  }
+  
+  .custom-button {
+    border: none;
+    border-radius: 15px;
+    padding: 10px 20px;
+    background-color: rgb(46, 46, 199);
+    color: white;
+    font-weight: bold;
+}
+  
+  button[mat-dialog-close] {
+    margin-left: 10px;
+  }
+  
+  button[mat-dialog-close]:hover,
+  button.mat-button:hover {
+    background-color: #115293; /* Azul oscuro al pasar el ratón */
+  }
+  

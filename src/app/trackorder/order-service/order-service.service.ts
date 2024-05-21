@@ -10,6 +10,7 @@ import { AgregarIngresoRequest } from 'src/app/Interface/agregarIngresoRequest';
 import { AgregarCategoriaRequest } from 'src/app/Interface/agregarCategoriaRequest';
 import { Categoria } from 'src/app/Interface/Categoria';
 import { cuentaDatos } from 'src/app/Interface/obtenerCuenta';
+import { ColumnsTrackOrderList } from 'src/app/Interface/columns-track-order-list';
 
 
 @Injectable({
@@ -136,5 +137,10 @@ export class OrderService {
       `https://localhost:7026/gastos/delete/${idGasto}`
     );
   }
-  
+  editarGasto(datos: Gastos): Observable<string> {
+    return this.http.put<string>(
+      `https://localhost:7026/gastos/editarGasto`,
+      datos
+    );
+  }
 }

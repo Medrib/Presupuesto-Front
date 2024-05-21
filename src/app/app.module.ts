@@ -31,7 +31,8 @@ import { IngresoComponent } from './trackorder/Gasto/nuevo-gasto/ingreso/ingreso
 import { CategoriaComponent } from './categoria/categoria.component';
 import { CategoriaDeGastosComponent } from './categoria-de-gastos/categoria-de-gastos.component';
 import { PopupComponent } from './cuenta/popup/popup.component';
-import { MatFormFieldModule } from '@angular/material/form-field'; // Importa MatFormFieldModule
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { PopupEditarComponent } from './popup-editar/popup-editar.component'; // Importa MatFormFieldModule
 
 
 
@@ -56,6 +57,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'; // Importa Ma
     CategoriaComponent,
     CategoriaDeGastosComponent,
     PopupComponent,
+    PopupEditarComponent,
   
   ],
   imports: [

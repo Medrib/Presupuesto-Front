@@ -15,6 +15,8 @@ import { Sorting } from 'src/app/sort';
 import { Pagination } from 'src/app/Interface/Pagination';
 import { ColumnsTrackOrderList } from 'src/app/Interface/columns-track-order-list';
 import { categoriaGasto } from 'src/app/Interface/categoriaGasto';
+import { MatDialog } from '@angular/material/dialog';
+import { PopupEditarComponent } from 'src/app/popup-editar/popup-editar.component';
  
 @Component({
   selector: 'app-order-tracking-list',
@@ -65,10 +67,15 @@ export class OrderTrackingListComponent implements OnInit {
   pagingData!: Pagination;
   dataSource = new MatTableDataSource<ColumnsTrackOrderList>();
   filters !: Filters
+  public gastoAEditar: Gastos | null = null;
+  dialogRef: any;
+  popupAbierto: boolean = false;
+  
+ 
 
 
   constructor(
-     private  orderService : OrderService,
+     private  orderService : OrderService,private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -181,6 +188,9 @@ export class OrderTrackingListComponent implements OnInit {
       return this.mapOrderToColumnsTrackOrderList(order);
     });
   }
+   cerrarPopup(): void {
+    this.dialogRef.close();
+  }
   
   private mapOrderToColumnsTrackOrderList(order: Gastos): ColumnsTrackOrderList {
     const formattedDate = order.fecha ? new Date(order.fecha).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '';
@@ -195,13 +205,18 @@ export class OrderTrackingListComponent implements OnInit {
     };
   }
 
-  editar(element: ColumnsTrackOrderList): void {
-    
-    console.log('Editar:', element);
+  abrirPopupEditar(element: any) {
+    const dialogRef = this.dialog.open(PopupEditarComponent, {
+      width: '800px',
+      height: '400px',
+      data: { gasto: element } 
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('El popup se cerró');
+      
+    });
   }
-
-
-
   eliminar(element: ColumnsTrackOrderList): void {
     const idGasto = element.id;
     this.orderService.eliminarGasto(idGasto).subscribe(
