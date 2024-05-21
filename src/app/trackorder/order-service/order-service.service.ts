@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, throwError, Subject, elementAt, tap } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Gastos } from 'src/app/Gastos';
 import { Filters } from 'src/app/filter';
 import { Sorting } from 'src/app/sort';
 import { Pagination } from 'src/app/Interface/Pagination';
-import { AgregarGastoRequest } from 'src/app/Interface/agregarGastoRequest';
+import { AgregarGastoRequest, gastosRequest } from 'src/app/Interface/agregarGastoRequest';
 import { AgregarIngresoRequest } from 'src/app/Interface/agregarIngresoRequest';
 import { AgregarCategoriaRequest } from 'src/app/Interface/agregarCategoriaRequest';
 import { Categoria } from 'src/app/Interface/Categoria';
 import { cuentaDatos } from 'src/app/Interface/obtenerCuenta';
 import { ColumnsTrackOrderList } from 'src/app/Interface/columns-track-order-list';
+import { GastoComponent } from '../Gasto/nuevo-gasto/gasto/gasto.component';
+import { categoriaGasto } from 'src/app/Interface/categoriaGasto';
 
 
 @Injectable({
@@ -20,7 +22,6 @@ export class OrderService {
   searchKeyword$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   envioCategoria$: Subject<Categoria> = new Subject<Categoria>();
   envioCuenta$: Subject<cuentaDatos> = new Subject<cuentaDatos>();
-  
 
   constructor(private http: HttpClient) {}
 
@@ -72,6 +73,31 @@ export class OrderService {
       { params }
     );
   }
+  
+  getDataFromCategoria(
+    filters: Filters,
+    sorting: Sorting,
+    pagination: Pagination
+  ): Observable<{ data: categoriaGasto[]; totalItems: number }> {
+    const params = new HttpParams({
+      fromObject: {
+        ...filters,
+        ...sorting,
+        ...pagination,
+      },
+    });
+  
+    console.log('Request Params:', params.toString());
+  
+    return this.http.get<{ data: Categoria[], totalItems: number }>(
+      'https://localhost:7026/gastos/getCategory',
+      { params }
+    ).pipe(
+      tap((response: any) => console.log('Response from service:', response))
+    );
+    
+  }
+  
 
   getCountOrders(filters: Filters): Observable<{ data: number }> {
     const params = new HttpParams({
@@ -112,7 +138,7 @@ export class OrderService {
       categoria
     );
   }
-
+  
   getCategories(): Observable<Categoria[]> {
     return this.http.get<Categoria[]>(
       'https://localhost:7026/gastos/getCategory'
@@ -131,11 +157,12 @@ export class OrderService {
       'https://localhost:7026/gastos/getCuenta'
     );
   }
-
+  
   eliminarGasto(idGasto: number): Observable<{ data: string }> {
     return this.http.delete<{ data: string }>(
       `https://localhost:7026/gastos/delete/${idGasto}`
     );
+
   }
   editarGasto(datos: Gastos): Observable<string> {
     return this.http.put<string>(
@@ -143,4 +170,8 @@ export class OrderService {
       datos
     );
   }
+  } 
+  obtenerGasto(): Observable<gastosRequest[]> {
+    return this.http.get<gastosRequest[]>('https://localhost:7026/gastos');
+  }  
 }

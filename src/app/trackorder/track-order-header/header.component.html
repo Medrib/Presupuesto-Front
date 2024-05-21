@@ -7,8 +7,11 @@
       <button [class.selected]="selectedComponent === 'ORDER_TRACKING_LIST'"(click)="showComponent('ORDER_TRACKING_LIST')" routerLink="/OrderTrackingList" type="submit">
         <span class="button-text">{{'DIARIO'| translate}}</span>
       </button>
+      <button [class.selected]="selectedComponent === 'CATEGORIA_DE_GASTOS'"(click)="showComponent('CATEGORIA_DE_GASTOS')" routerLink="/categoriaDeGastos" type="submit">
+        <span class="button-text">{{'CATEGORIA'| translate}}</span>
+      </button>
       <button class="language-button" (click)="onLanguageChange()">
-        {{ currentLanguage === 'es' ? 'Castellano' : 'English' }}
+        {{ currentLanguage === 'es' ? 'Español' : 'English' }}
       </button>
   </div>
 </div>

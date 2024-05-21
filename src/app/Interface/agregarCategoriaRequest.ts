@@ -1,4 +1,5 @@
 
 export interface AgregarCategoriaRequest {
-    nombre : string
+    nombre : string,
+    descripcion: string
 }
