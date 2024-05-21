@@ -170,8 +170,8 @@ export class OrderService {
       datos
     );
   }
-  } 
+
   obtenerGasto(): Observable<gastosRequest[]> {
     return this.http.get<gastosRequest[]>('https://localhost:7026/gastos');
   }  
-}
+} 
