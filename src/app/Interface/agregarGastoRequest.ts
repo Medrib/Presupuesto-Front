@@ -9,6 +9,9 @@ export interface AgregarGastoRequest {
     IDCategoriaGasto: number;
 }
 
-export interface eliminarGastoRequest{
-    IDGasto: number;
+export interface gastosRequest{
+    IDGastos: number,
+    Fecha: string | null;
+    Monto: number;
+    Descripcion: string;
 }

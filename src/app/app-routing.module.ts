@@ -15,7 +15,7 @@ import { CategoriaDeGastosComponent } from './categoria-de-gastos/categoria-de-g
 
 const routes: Routes = [
      
-    { path: '', component: LoginComponent },
+    { path: '', component: OrderTrackingListComponent},
     { path:'GestionDeStock', component: GestionDeStockComponent},
     { path:'OrderTracking', component: OrderTrackingComponent},
     { path:'Resumen', component: ResumenComponent},

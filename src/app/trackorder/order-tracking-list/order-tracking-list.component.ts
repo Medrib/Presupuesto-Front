@@ -13,8 +13,10 @@ import { Gastos } from 'src/app/Gastos';
 import { Filters } from 'src/app/filter';
 import { Sorting } from 'src/app/sort';
 import { Pagination } from 'src/app/Interface/Pagination';
-import { ColumnsTrackOrderList } from 'src/app/Interface/columns-track-order-list';
+import { ColumnsTrackOrderList} from 'src/app/Interface/columns-track-order-list';
 import { categoriaGasto } from 'src/app/Interface/categoriaGasto';
+import { MatDialog } from '@angular/material/dialog';
+import { PopupEditarComponent } from 'src/app/popup-editar/popup-editar.component';
  
 @Component({
   selector: 'app-order-tracking-list',
@@ -68,8 +70,7 @@ export class OrderTrackingListComponent implements OnInit {
 
 
   constructor(
-     private  orderService : OrderService,
-  ) { }
+     private  orderService : OrderService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.getDataFromGrid();
@@ -195,13 +196,6 @@ export class OrderTrackingListComponent implements OnInit {
     };
   }
 
-  editar(element: ColumnsTrackOrderList): void {
-    
-    console.log('Editar:', element);
-  }
-
-
-
   eliminar(element: ColumnsTrackOrderList): void {
     const idGasto = element.id;
     this.orderService.eliminarGasto(idGasto).subscribe(
@@ -213,5 +207,11 @@ export class OrderTrackingListComponent implements OnInit {
       }
     );
   }
- 
+  
+  editarPopup(element : ColumnsTrackOrderList){
+    this.dialog.open(PopupEditarComponent, {
+      width: '400px',
+      data: element
+    });
+  }
 }

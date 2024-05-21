@@ -1,0 +1,13 @@
+<form>
+    <h1>Editar datos guardados</h1>
+    
+    <ng-container *ngIf="gasto">
+        <p>monto: {{ gasto.Monto }}</p>
+        <p>fecha: {{ gasto.Fecha }}</p>
+        <p>descripcion: {{ gasto.Descripcion }}</p>
+      </ng-container>
+    
+    <button type="submit" (click)="MostrarGastos()">Mostrar gastos!</button>
+    <button type="button" (click)="cerrarPopup()">Cerrar</button>
+  </form>
+  
