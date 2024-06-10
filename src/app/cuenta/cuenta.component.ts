@@ -37,6 +37,7 @@ export class CuentaComponent implements OnInit {
     this.mostrarLapiz = true;
     const agregarCuenta: cuentaDatos = {
       nombre: this.cuentas,
+      idCuenta: 0
     };
     this.agregarCuenta = agregarCuenta;
     return this.orderService

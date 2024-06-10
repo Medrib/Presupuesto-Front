@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError, Subject, elementAt, tap } from 'rxjs';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { BehaviorSubject, Observable, throwError, Subject, elementAt, tap, catchError } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Gastos } from 'src/app/Gastos';
 import { Filters } from 'src/app/filter';
 import { Sorting } from 'src/app/sort';
 import { Pagination } from 'src/app/Interface/Pagination';
-import { AgregarGastoRequest, gastosRequest } from 'src/app/Interface/agregarGastoRequest';
+import { AgregarGastoRequest} from 'src/app/Interface/agregarGastoRequest';
 import { AgregarIngresoRequest } from 'src/app/Interface/agregarIngresoRequest';
 import { AgregarCategoriaRequest } from 'src/app/Interface/agregarCategoriaRequest';
 import { Categoria } from 'src/app/Interface/Categoria';
@@ -26,12 +26,12 @@ export class OrderService {
   constructor(private http: HttpClient) {}
 
   envioCategoria(categoria: Categoria): void {
-    console.log(categoria,'categoria')
+    console.log(categoria)
     this.envioCategoria$.next(categoria);
   }
 
   envioCuenta(cuenta: cuentaDatos): void {
-    console.log("llego envio");
+    console.log(cuenta)
     this.envioCuenta$.next(cuenta);
   }
   
@@ -112,12 +112,15 @@ export class OrderService {
     );
   }
 
-  sendDataToServer(
-    nuevoGasto: AgregarGastoRequest
-  ): Observable<{ data: string }> {
+  sendDataToServer(nuevoGasto: AgregarGastoRequest): Observable<{ data: string }> {
     return this.http.post<{ data: string }>(
       'https://localhost:7026/gastos/agregarGasto',
       nuevoGasto
+    ).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error al llamar a sendDataToServer:', error);
+        return throwError(error);
+      })
     );
   }
 
@@ -171,7 +174,7 @@ export class OrderService {
     );
   }
 
-  obtenerGasto(): Observable<gastosRequest[]> {
-    return this.http.get<gastosRequest[]>('https://localhost:7026/gastos');
+  obtenerGasto(): Observable<AgregarGastoRequest[]> {
+    return this.http.get<AgregarGastoRequest[]>('https://localhost:7026/gastos');
   }  
 } 
