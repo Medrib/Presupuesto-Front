@@ -3,12 +3,8 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { OrderService } from '../trackorder/order-service/order-service.service';
 import { ColumnsTrackOrderList } from '../Interface/columns-track-order-list';
-import { Component, Inject, OnInit, importProvidersFrom } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { OrderService } from '../trackorder/order-service/order-service.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { gastosRequest } from '../Interface/agregarGastoRequest';
 import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-popup-editar',

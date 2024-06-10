@@ -1,11 +1,10 @@
-import { Component, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { BehaviorSubject, Observable, Subject, combineLatest, debounceTime, finalize, forkJoin, map, of, shareReplay, switchMap, tap } from 'rxjs';
+import { PageEvent } from '@angular/material/paginator';
+import { BehaviorSubject, Observable, combineLatest, map, switchMap, tap } from 'rxjs';
 import { PagingDataRequest } from 'src/app/paging-data-request';
 import { SortOrder } from 'src/app/sort-order';
-import { delay, filter } from 'rxjs/operators';
 import { GridColumnName } from 'src/app/grid-column-name';
 import { GridColumnsDetails } from 'src/app/grid-columns-details';
 import { OrderService } from '../order-service/order-service.service';
@@ -14,7 +13,6 @@ import { Filters } from 'src/app/filter';
 import { Sorting } from 'src/app/sort';
 import { Pagination } from 'src/app/Interface/Pagination';
 import { ColumnsTrackOrderList} from 'src/app/Interface/columns-track-order-list';
-import { categoriaGasto } from 'src/app/Interface/categoriaGasto';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupEditarComponent } from 'src/app/popup-editar/popup-editar.component';
  
@@ -70,15 +68,11 @@ export class OrderTrackingListComponent implements OnInit {
   public gastoAEditar: Gastos | null = null;
   dialogRef: any;
   popupAbierto: boolean = false;
-  
- 
-
 
   constructor(
 
      private  orderService : OrderService,private dialog: MatDialog
   ) { }
-
 
   ngOnInit() {
     this.getDataFromGrid();
@@ -214,8 +208,7 @@ export class OrderTrackingListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('El popup se cerró');
-      
+      // console.log('El popup se cerró');
     });
   }
 
@@ -223,11 +216,12 @@ export class OrderTrackingListComponent implements OnInit {
     const idGasto = element.id;
     this.orderService.eliminarGasto(idGasto).subscribe(
       () => {
-        console.log('Gasto eliminado correctamente');
+        this.applyPagination(this.pageIndex, this.pageSize);
+        // console.log('Gasto eliminado correctamente');
       },
       error => {
         console.error('Error al eliminar el gasto', error);
       }
     );
   }
-
+}

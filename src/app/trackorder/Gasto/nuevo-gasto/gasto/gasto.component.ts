@@ -11,7 +11,7 @@ import { cuentaDatos } from 'src/app/Interface/obtenerCuenta';
 @Component({
   selector: 'app-gasto',
   templateUrl: './gasto.component.html',
-  styleUrls: ['./gasto.component.css']
+  styleUrls: ['./gasto.component.css'],
 })
 export class GastoComponent implements OnInit, OnDestroy {
   categoria!: Categoria;
@@ -29,7 +29,6 @@ export class GastoComponent implements OnInit, OnDestroy {
         this.llegaCategoria(categoria);
       }
     );
-
     this.categoriaSubscription = this.orderService.envioCuenta$.subscribe(
       (cuentas: cuentaDatos) => {
         this.llegaCuenta(cuentas);
@@ -40,55 +39,50 @@ export class GastoComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.categoriaSubscription.unsubscribe();
   }
-  
+
   nuevoGasto = {
     fecha: '',
-    importe: 0,
+    monto: 0,
+    descripcion: '',
+    idCuenta: 0,
+    idPresupuesto: 0,
+    idCategoriaGasto: 0,
     categoria: '',
     cuenta: '',
-    nota: ''
+    presupuesto: '',
   };
-  
+
   guardarGasto(): void {
     const agregarGastoRequest: AgregarGastoRequest = {
       Fecha: this.nuevoGasto.fecha,
-      Monto: this.nuevoGasto.importe,
-      Descripcion: this.nuevoGasto.nota,
-      IDPresupuesto: 1,
-      IDCategoriaGasto: 1,
+      Monto: this.nuevoGasto.monto,
+      Descripcion: this.nuevoGasto.descripcion,
+      IDCuenta: this.nuevoGasto.idCuenta,
+      CuentaName: this.nuevoGasto.cuenta,
+      IDPresupuesto: this.nuevoGasto.idPresupuesto,
+      IDCategoriaGasto: this.nuevoGasto.idCategoriaGasto,
+      CategoriaGastoName: this.nuevoGasto.categoria,
+      PresupuestoName: this.nuevoGasto.presupuesto,
     };
 
-    this.orderService.sendDataToServer(agregarGastoRequest)
-      .subscribe(
-        response => {
-          // Manejar respuesta
-        },
-        error => {
-          console.error('Error al llamar a getCountOrders:', error);
-        }
-      );
-  }
-
-  // abrirCategoria(): void {
-  //   if (!this.dialog.openDialogs.length) {
-  //     this.dialog.open(CategoriaComponent, {
-  //       width: '400px'
-  //     });
-  //   }
-  // }
-
-  abrirCuenta(): void {
-    const dialogRef = this.dialog.open(CuentaComponent, {
-      width: '400px'
-    });
-  }
-  
-  llegaCategoria(categoria: Categoria): void {
-    this.nuevoGasto.categoria = categoria.nombre;
-  }
-
-  llegaCuenta(cuentas: cuentaDatos): void {
-    this.nuevoGasto.cuenta = cuentas.nombre;
+    this.orderService.sendDataToServer(agregarGastoRequest).subscribe(
+      (response: { data: string }) => {
+        this.nuevoGasto = {
+          fecha: '',
+          monto: 0,
+          descripcion: '',
+          idCuenta: 0,
+          idPresupuesto: 0,
+          idCategoriaGasto: 0,
+          categoria: '',
+          cuenta: '',
+          presupuesto: '',
+        };
+      },
+      (error) => {
+        console.error('Error al llamar a sendDataToServer:', error);
+      }
+    );
   }
   MostrarCategoria() {
     this.orderService
@@ -102,6 +96,20 @@ export class GastoComponent implements OnInit, OnDestroy {
           console.error('Error al llamar al Servicio:', error);
         }
       );
+  }
+  seleccionarCategoria(): void {
+    const categoria: Categoria = this.nuevoGasto.categoria as unknown as Categoria;
+    if (categoria) {
+      this.orderService.envioCategoria(categoria);
+      // console.log(`Categoria seleccionada: ID = ${categoria.idCategoriaGasto}, Nombre = ${categoria.nombre}`);
+    }
+  }
+
+  llegaCategoria(categoria: Categoria): void {
+    if (categoria) {
+      this.nuevoGasto.idCategoriaGasto = categoria.idCategoriaGasto;
+      this.nuevoGasto.categoria = categoria.nombre;
+    }
   }
 
   MostrarCuenta() {
@@ -117,10 +125,18 @@ export class GastoComponent implements OnInit, OnDestroy {
         }
       );
   }
-  seleccionarCategoria(categoria: Categoria): void {
-    console.log(categoria,'llego aca)')
-    // this.cerrarPopup();
-    this.orderService.envioCategoria(categoria);
+
+  seleccionarCuenta() {
+    const cuenta: cuentaDatos = this.nuevoGasto.cuenta as unknown as cuentaDatos;
+    if (cuenta) {
+      this.orderService.envioCuenta(cuenta);
+    }
   }
 
+  llegaCuenta(cuenta: cuentaDatos): void {
+    if (cuenta) {
+      this.nuevoGasto.idCuenta = cuenta.idCuenta;
+      this.nuevoGasto.cuenta = cuenta.nombre;
+    }
+  }
 }
