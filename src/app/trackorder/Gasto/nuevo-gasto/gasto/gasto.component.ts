@@ -216,14 +216,6 @@ export class GastoComponent implements OnInit, OnDestroy {
     }
   }
 
-  afterClosed(): void {
-    if (this.isEditMode) {
-      this.dialogRef.close(false);
-    } else {
-      this.router.navigate(['/']);
-    }
-  }
-
   resetMessages(): void {
     this.envioMessage = '';
     this.errorMessage = '';

@@ -1,7 +1,42 @@
 <div>
-     <button class="custom-button">Ajuste de presupuesto</button>
-     <input type="text" placeholder="categoria" required (click)="abrirCuenta()">
-    
-    <input type="text" placeholder="dinero Inicial ">
-    <button class="custom-button" >Guardar</button>
+    <form>
+        <div class=" campo">
+            <h1>Ajuste de presupuesto</h1>
+            <label for="">Seleccione año: </label>
+            <select name="" id="">
+                <option value="">2021</option>
+                <option value="">2022</option>
+            </select>
+            <br>
+            <label for="">Seleccione mes:</label>
+            <select name="" id="">
+                <option value="">mes</option>
+            </select>
+            <div class="botones-container">
+                <button class="custom-button" (click)="abrirPopupEditar(element)">Nuevo presupuesto</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="mat-elevation-z8 grilla-container">
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container *ngFor="let column of displayedColumns">
+                <ng-container [matColumnDef]="column">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell">
+                        <div class="header-content">
+                            <span>{{ column }}</span>
+                        </div>
+                    </th>
+                </ng-container>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+    </div>
+
+    <div class="paginator-container">
+        <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20, 100]"
+            (page)="onPageChange($event)">
+        </mat-paginator>
+    </div>
 </div>

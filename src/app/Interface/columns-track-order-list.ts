@@ -1,9 +1,9 @@
 export interface ColumnsTrackOrderList {
   id: number;
   CategoriaDeGastos: string;
-  idCategoriaGasto: number,
+  idCategoriaGasto: number;
   cuenta: string;
-  idCuenta:number
+  idCuenta: number;
   Monto: number;
   Descripcion: string;
   Fecha: string | null;
@@ -18,4 +18,11 @@ export interface ColumnsCategoria {
 export interface AgregarCategoriaRequest {
   Nombre: string;
   Descripcion: string;
+}
+
+export interface columnsResumen {
+  Categoria: string,
+  Dinero: number,
+  Gasto: number,
+  DineroDisponible: number
 }

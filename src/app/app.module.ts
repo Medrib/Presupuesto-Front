@@ -32,8 +32,8 @@ import { CategoriaComponent } from './categoria/categoria.component';
 import { CategoriaDeGastosComponent } from './categoria-de-gastos/categoria-de-gastos.component';
 import { PopupComponent } from './cuenta/popup/popup.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { PopupEditarComponent } from './popup-editar/popup-editar.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NuevoResumenComponent } from './nuevo-resumen/nuevo-resumen.component';
 
 
 
@@ -58,8 +58,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CategoriaComponent,
     CategoriaDeGastosComponent,
     PopupComponent,
-    PopupEditarComponent,
-  
+    NuevoResumenComponent,  
   ],
   imports: [
     BrowserModule,
