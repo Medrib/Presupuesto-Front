@@ -1,34 +1,31 @@
-<form (ngSubmit)="guardarGasto()" class="formulario">
-    <div class="campo">
-        <label for="fecha">Fecha:</label>
-        <input type="date" id="fecha" name="fecha" [(ngModel)]="nuevoGasto.fecha" required>
+<h1>{{ isEditMode ? 'Editar Gasto' : 'Nuevo Gasto' }}</h1>
+<form [formGroup]="gastoForm" (ngSubmit)="onSubmit()" class="formulario">
+  <div class="campo">
+    <label for="fecha">Fecha:</label>
+    <input type="date" id="fecha" formControlName="fecha" required>
 
-        <label for="monto">Monto:</label>
-        <input type="number" id="monto" name="monto" [(ngModel)]="nuevoGasto.monto" placeholder="Ingrese el importe"
-            required>
+    <label for="monto">Monto:</label>
+    <input type="text" id="monto" formControlName="monto" placeholder="Ingrese el importe" required>
 
-        <label for="descripcion">Descripcion:</label>
-        <textarea id="descripcion" name="descripcion" [(ngModel)]="nuevoGasto.descripcion"></textarea>
+    <label for="categoria">Categoria:</label>
+    <select id="categoria" formControlName="idCategoriaGasto" (change)="seleccionarCategoria()" required>
+      <option *ngFor="let categoria of categorias" [value]="categoria.idCategoriaGasto">{{ categoria.nombre }}</option>
+    </select>
 
-        <label for="categoria">Categoria:</label>
-        <select id="categoria" name="categoria" [(ngModel)]="nuevoGasto.categoria" (change)="seleccionarCategoria()"
-            required>
-            <option value="" disabled selected>Seleccione una categoria</option>
-            <option *ngFor="let categoria of categorias" [ngValue]="categoria">{{ categoria.nombre }}</option>
-        </select>
+    <label for="cuenta">Cuenta:</label>
+    <select id="cuenta" formControlName="idCuenta" (change)="seleccionarCuenta()" required>
+      <option *ngFor="let cuenta of obtenerCuenta" [value]="cuenta.idCuenta">{{ cuenta.nombre }}</option>
+    </select>
 
-        <label for="cuenta">Cuenta:</label>
-        <select id="cuenta" name="cuenta" [(ngModel)]="nuevoGasto.cuenta" (ngModelChange)="seleccionarCuenta()">
-            <option value="" disabled selected>Seleccione una cuenta</option>
-            <option *ngFor="let cuenta of obtenerCuenta" [ngValue]="cuenta">{{ cuenta.nombre }}</option>
-        </select>
+    <label for="descripcion">Descripción:</label>
+    <textarea id="descripcion" formControlName="descripcion" placeholder="Ingrese descripción del gasto"></textarea>
 
-        <label for="presupuesto">Presupuesto:</label>
-        <input type="number" id="presupuesto" name="presupuesto" [(ngModel)]="nuevoGasto.idPresupuesto" placeholder="Ingrese ID de presupuesto"
-            required>
+    <div class="mensaje-exitoso" *ngIf="envioMessage">{{ envioMessage }}</div>
+    <div class="mensaje-error" *ngIf="errorMessage">{{ errorMessage }}</div>
 
-        <div class="botones-container">
-            <button type="submit">Guardar</button>
-        </div>
+    <div class="botones-container">
+      <button type="button" (click)="afterClosed()">Cancelar</button>
+      <button type="submit" [disabled]="gastoForm.invalid">{{ isEditMode ? 'Actualizar gasto' : 'Agregar gasto' }}</button>
     </div>
+  </div>
 </form>

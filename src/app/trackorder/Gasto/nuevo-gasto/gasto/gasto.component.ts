@@ -1,12 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { CuentaComponent } from 'src/app/cuenta/cuenta.component';
-import { CategoriaComponent } from '../../../../categoria/categoria.component';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { OrderService } from 'src/app/trackorder/order-service/order-service.service';
-import { tap } from 'rxjs/operators';
 import { AgregarGastoRequest } from 'src/app/Interface/agregarGastoRequest';
 import { Categoria } from 'src/app/Interface/Categoria';
 import { cuentaDatos } from 'src/app/Interface/obtenerCuenta';
+import { Gastos } from 'src/app/Gastos';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gasto',
@@ -14,129 +15,217 @@ import { cuentaDatos } from 'src/app/Interface/obtenerCuenta';
   styleUrls: ['./gasto.component.css'],
 })
 export class GastoComponent implements OnInit, OnDestroy {
-  categoria!: Categoria;
-  categoriaSubscription: any;
-  categorias: Categoria[] | undefined;
-  obtenerCuenta: cuentaDatos[] | undefined;
+  categorias: Categoria[] = [];
+  obtenerCuenta: cuentaDatos[] = [];
+  categoriaSubscription: Subscription = new Subscription();
+  cuentaSubscription: Subscription = new Subscription();
+  errorMessage: string = '';
+  envioMessage: string = '';
+  gastoForm!: FormGroup;
+  isEditMode: boolean = false;
 
-  constructor(private dialog: MatDialog, public orderService: OrderService) {}
+  constructor(
+    public orderService: OrderService,
+    public dialogRef: MatDialogRef<GastoComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    this.initializeForm();
     this.MostrarCategoria();
     this.MostrarCuenta();
+
     this.categoriaSubscription = this.orderService.envioCategoria$.subscribe(
       (categoria: Categoria) => {
         this.llegaCategoria(categoria);
       }
     );
-    this.categoriaSubscription = this.orderService.envioCuenta$.subscribe(
-      (cuentas: cuentaDatos) => {
-        this.llegaCuenta(cuentas);
+    this.cuentaSubscription = this.orderService.envioCuenta$.subscribe(
+      (cuenta: cuentaDatos) => {
+        this.llegaCuenta(cuenta);
       }
     );
+
+    this.isEditMode = !!this.data?.gasto;
+
+    if (this.isEditMode) {
+      this.patchFormValues();
+    }
   }
 
   ngOnDestroy(): void {
-    this.categoriaSubscription.unsubscribe();
+    if (this.categoriaSubscription) {
+      this.categoriaSubscription.unsubscribe();
+    }
+    if (this.cuentaSubscription) {
+      this.cuentaSubscription.unsubscribe();
+    }
   }
 
-  nuevoGasto = {
-    fecha: '',
-    monto: 0,
-    descripcion: '',
-    idCuenta: 0,
-    idPresupuesto: 0,
-    idCategoriaGasto: 0,
-    categoria: '',
-    cuenta: '',
-    presupuesto: '',
-  };
+  initializeForm(): void {
+    this.gastoForm = this.fb.group({
+      idCategoriaGasto: [this.isEditMode ? this.data.gasto.idCategoriaGasto : '', Validators.required,],
+      descripcion: [this.isEditMode ? this.data.gasto.descripcion : '',Validators.required,],
+      fecha: [this.isEditMode ? this.formatDate(this.data.gasto.fecha) : new Date().toISOString().split('T')[0], Validators.required,],
+      idCuenta: [this.isEditMode ? this.data.gasto.idCuenta : '', Validators.required,],
+      monto: [this.isEditMode ? this.data.gasto.monto : '', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)],],
+    });
+  }
 
-  guardarGasto(): void {
-    const agregarGastoRequest: AgregarGastoRequest = {
-      Fecha: this.nuevoGasto.fecha,
-      Monto: this.nuevoGasto.monto,
-      Descripcion: this.nuevoGasto.descripcion,
-      IDCuenta: this.nuevoGasto.idCuenta,
-      CuentaName: this.nuevoGasto.cuenta,
-      IDPresupuesto: this.nuevoGasto.idPresupuesto,
-      IDCategoriaGasto: this.nuevoGasto.idCategoriaGasto,
-      CategoriaGastoName: this.nuevoGasto.categoria,
-      PresupuestoName: this.nuevoGasto.presupuesto,
-    };
+  patchFormValues(): void {
+    const gasto = this.data.gasto;
+    const fechaFormateada = this.formatDate(gasto.fecha);
+    console.log("Fecha: ",fechaFormateada);
+    
 
-    this.orderService.sendDataToServer(agregarGastoRequest).subscribe(
-      (response: { data: string }) => {
-        this.nuevoGasto = {
-          fecha: '',
-          monto: 0,
-          descripcion: '',
-          idCuenta: 0,
-          idPresupuesto: 0,
-          idCategoriaGasto: 0,
-          categoria: '',
-          cuenta: '',
-          presupuesto: '',
-        };
+    this.gastoForm.patchValue({
+      idCategoriaGasto: gasto.idCategoriaGasto,
+      descripcion: gasto.descripcion,
+      fecha: fechaFormateada,
+      idCuenta: gasto.idCuenta,
+      monto: gasto.monto,
+    });
+  }
+
+  private formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    const dia = ('0' + date.getDate()).slice(-2);
+    const mes = ('0' + (date.getMonth() + 1)).slice(-2);
+    const anio = date.getFullYear();
+    return `${anio}-${dia}-${mes}`;
+  }
+
+  MostrarCategoria() {
+    this.orderService.getCategories().subscribe(
+      (categorias: Categoria[]) => {
+        this.categorias = categorias;
       },
       (error) => {
-        console.error('Error al llamar a sendDataToServer:', error);
+        console.error('Error al obtener categorías:', error);
       }
     );
   }
-  MostrarCategoria() {
-    this.orderService
-      .getCategories()
-      .pipe()
-      .subscribe(
-        (categorias: Categoria[]) => {
-          this.categorias = categorias;
-        },
-        (error) => {
-          console.error('Error al llamar al Servicio:', error);
-        }
-      );
-  }
+
   seleccionarCategoria(): void {
-    const categoria: Categoria = this.nuevoGasto.categoria as unknown as Categoria;
+    const idCategoriaGasto = this.gastoForm.get('idCategoriaGasto')?.value;
+
+    const categoria = this.categorias.find(
+      (c) => c.idCategoriaGasto === idCategoriaGasto
+    );
     if (categoria) {
-      this.orderService.envioCategoria(categoria);
-      // console.log(`Categoria seleccionada: ID = ${categoria.idCategoriaGasto}, Nombre = ${categoria.nombre}`);
+      this.gastoForm.patchValue({
+        idCategoriaGasto: categoria.idCategoriaGasto,
+      });
+    } else {
+      console.error('Categoria no encontrada para el valor:', idCategoriaGasto);
     }
   }
 
   llegaCategoria(categoria: Categoria): void {
     if (categoria) {
-      this.nuevoGasto.idCategoriaGasto = categoria.idCategoriaGasto;
-      this.nuevoGasto.categoria = categoria.nombre;
+      this.gastoForm.patchValue({
+        idCategoriaGasto: categoria.idCategoriaGasto,
+      });
     }
   }
 
   MostrarCuenta() {
-    this.orderService
-      .getCuenta()
-      .pipe()
-      .subscribe(
-        (cuenta: cuentaDatos[]) => {
-          this.obtenerCuenta = cuenta;
-        },
-        (error) => {
-          console.error('Error al llamar al Servicio:', error);
-        }
-      );
+    this.orderService.getCuenta().subscribe(
+      (cuentas: cuentaDatos[]) => {
+        this.obtenerCuenta = cuentas;
+        this.seleccionarCuenta();
+      },
+      (error) => {
+        console.error('Error al obtener cuentas:', error);
+      }
+    );
   }
 
-  seleccionarCuenta() {
-    const cuenta: cuentaDatos = this.nuevoGasto.cuenta as unknown as cuentaDatos;
-    if (cuenta) {
-      this.orderService.envioCuenta(cuenta);
+  seleccionarCuenta(): void {
+    const id = this.gastoForm.get('idCuenta')?.value;
+
+    const cuentaSeleccion = this.obtenerCuenta.find((c) => c.idCuenta === id);
+
+    if (cuentaSeleccion) {
+      this.gastoForm.patchValue({ idCuenta: cuentaSeleccion.idCuenta });
+    } else {
+      console.error('Cuenta no encontrada para el valor:', id);
     }
   }
 
   llegaCuenta(cuenta: cuentaDatos): void {
     if (cuenta) {
-      this.nuevoGasto.idCuenta = cuenta.idCuenta;
-      this.nuevoGasto.cuenta = cuenta.nombre;
+      this.gastoForm.patchValue({ idCuenta: cuenta.idCuenta });
     }
+  }
+
+  onSubmit(): void {
+    if (this.gastoForm.valid) {
+      const gasto: Gastos = {
+        ...this.data.gasto,
+        ...this.gastoForm.value,
+      };
+
+      if (this.isEditMode) {
+        this.orderService.editarGasto(gasto).subscribe(
+          () => {
+            this.envioMessage = 'Gasto editado correctamente!';
+            this.dialogRef.close(true);
+          },
+          (error) => {
+            this.errorMessage = 'Hubo un error al editar el gasto!';
+            console.error('Error al editar el gasto:', error);
+          }
+        );
+      } else {
+        const agregarGastoRequest: AgregarGastoRequest = {
+          Fecha: this.gastoForm.value.fecha,
+          Monto: this.gastoForm.value.monto,
+          Descripcion: this.gastoForm.value.descripcion,
+          IDCuenta: this.gastoForm.value.idCuenta,
+          CuentaName:this.obtenerCuenta.find((c) => c.idCuenta === this.gastoForm.value.idCuenta)?.nombre || '',
+          IDPresupuesto: 1,
+          IDCategoriaGasto: this.gastoForm.value.idCategoriaGasto,
+          CategoriaGastoName:
+            this.categorias.find((c) => c.idCategoriaGasto === this.gastoForm.value.idCategoriaGasto)?.nombre || '',
+          PresupuestoName: '',
+        };
+
+        this.orderService.sendDataToServer(agregarGastoRequest).subscribe(
+          (response: { data: string }) => {
+            this.envioMessage = 'Gasto guardado correctamente!';
+            // setTimeout(() => {
+            // }, 3000);
+
+            this.gastoForm.reset({
+              idCategoriaGasto: '',
+              descripcion: '',
+              fecha: new Date().toISOString().split('T')[0],
+              idCuenta: '',
+              monto: '',
+            });
+          },
+          (error) => {
+            this.errorMessage = 'Hubo un error al guardar el gasto!';
+            console.error('Error al llamar a sendDataToServer:', error);
+          }
+        );
+      }
+    }
+  }
+
+  afterClosed(): void {
+    if (this.isEditMode) {
+      this.dialogRef.close(false);
+    } else {
+      this.router.navigate(['/']);
+    }
+  }
+
+  resetMessages(): void {
+    this.envioMessage = '';
+    this.errorMessage = '';
   }
 }

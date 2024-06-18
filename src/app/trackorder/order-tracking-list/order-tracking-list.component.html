@@ -4,10 +4,7 @@
 
 <app-nuevo-gasto></app-nuevo-gasto>
 
-<app-export
-  (exportData)="onExportClicked(columnsTrackOrder)"
-  [dataExport]="export"
-></app-export>
+<app-export (exportData)="onExportClicked(columnsTrackOrder)" [dataExport]="export"></app-export>
 
 <div class="mat-elevation-z8 grilla-container">
   <table mat-table [dataSource]="dataSource" matSort>
@@ -24,7 +21,7 @@
             <mat-icon [class.active]="isIconActive(column, 'desc')"
               (click)="sortGrid(column, isIconActive(column, 'desc') ? 'asc' : 'desc', $event)">keyboard_arrow_down</mat-icon>
             
-              <mat-icon [class.active]="isIconActive(column, 'asc')"
+            <mat-icon [class.active]="isIconActive(column, 'asc')"
               (click)="sortGrid(column, isIconActive(column, 'asc') ? 'desc' : 'asc', $event)">keyboard_arrow_up</mat-icon>
           </div>
 
@@ -40,7 +37,6 @@
           <button
             *ngIf="column === 'Editar o Eliminar'"
             mat-icon-button
-
             (click)="abrirPopupEditar(element)"
             class="custom-button">
             <mat-icon>create</mat-icon>
@@ -50,8 +46,7 @@
             *ngIf="column === 'Editar o Eliminar'"
             mat-icon-button
             (click)="eliminar(element)" mat-icon-button class="custom-button custom-delete-button">
-
-            <mat-icon >delete</mat-icon>
+            <mat-icon>delete</mat-icon>
           </button>
 
           <span *ngIf="column !== 'Editar o Eliminar'">{{element[column]}}</span>

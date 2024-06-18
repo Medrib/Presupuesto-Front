@@ -1,6 +1,5 @@
 export interface cuenta {
-    idcuenta : number,
-    nombre : string,
-   
+    idCuenta : number,
+    nombre : string,  
 }
 

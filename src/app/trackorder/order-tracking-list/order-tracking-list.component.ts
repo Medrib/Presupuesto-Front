@@ -14,7 +14,7 @@ import { Sorting } from 'src/app/sort';
 import { Pagination } from 'src/app/Interface/Pagination';
 import { ColumnsTrackOrderList} from 'src/app/Interface/columns-track-order-list';
 import { MatDialog } from '@angular/material/dialog';
-import { PopupEditarComponent } from 'src/app/popup-editar/popup-editar.component';
+import { GastoComponent } from '../Gasto/nuevo-gasto/gasto/gasto.component';
  
 @Component({
   selector: 'app-order-tracking-list',
@@ -68,6 +68,7 @@ export class OrderTrackingListComponent implements OnInit {
   public gastoAEditar: Gastos | null = null;
   dialogRef: any;
   popupAbierto: boolean = false;
+  editarGasto: boolean | undefined;
 
   constructor(
 
@@ -108,6 +109,7 @@ export class OrderTrackingListComponent implements OnInit {
         this.getData(searchKeyword, orderBy, paginationRequest,column,value)
       )
     ).subscribe(data => {
+      console.log('Datos recibidos desde la BD:', data);
       this.dataSource.data = data;
       this.export = data;
     });
@@ -194,21 +196,39 @@ export class OrderTrackingListComponent implements OnInit {
     return { 
       id :order.idGasto,
       CategoriaDeGastos: order.categoriaGasto?.nombre,
+      idCategoriaGasto: order.categoriaGasto?.idCategoriaGasto,
       cuenta:order.cuenta?.nombre,
+      idCuenta: order.cuenta?.idCuenta,
       Monto: order.monto,
       Descripcion: order.descripcion,
       Fecha: formattedDate,
     };
   }
-  abrirPopupEditar(element: any) {
-    const dialogRef = this.dialog.open(PopupEditarComponent, {
-      width: '800px',
-      height: '400px',
-      data: { gasto: element } 
+  
+  abrirPopupEditar(element: ColumnsTrackOrderList): void {    
+    const dialogRef = this.dialog.open(GastoComponent, {
+      width: '500px',
+      height: '500px',
+      data: {
+        gasto: {
+          categoriaGasto: element.CategoriaDeGastos,
+          idCategoriaGasto: element.idCategoriaGasto,
+          descripcion: element.Descripcion,
+          fecha: element.Fecha,
+          cuenta: element.cuenta,
+          idCuenta: element.idCuenta,
+          idGasto: element.id,
+          monto: element.Monto,
+          presupuesto: ' ',
+          idPresupuesto: 1
+        }
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // console.log('El popup se cerró');
+      if (result) {
+        this.applyPagination(this.pageIndex, this.pageSize);
+      }
     });
   }
 
@@ -217,7 +237,6 @@ export class OrderTrackingListComponent implements OnInit {
     this.orderService.eliminarGasto(idGasto).subscribe(
       () => {
         this.applyPagination(this.pageIndex, this.pageSize);
-        // console.log('Gasto eliminado correctamente');
       },
       error => {
         console.error('Error al eliminar el gasto', error);

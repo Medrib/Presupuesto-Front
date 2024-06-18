@@ -10,7 +10,7 @@ textarea {
 }
 
 .campo {
-    margin: 20px 0px 100px 20px;
+    margin: 20px 0px 0px 20px;
 }
 
 .campo label {
@@ -27,7 +27,7 @@ textarea {
     box-sizing: border-box;
 }
 input{
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 select {
     border: 2px solid black;
@@ -65,4 +65,25 @@ button:hover {
   }
   .custom-edit-button:hover{
     background-color: darkblue;
+  }
+
+  .mensaje-exitoso{
+    margin: 20px 0px 0px 0px;
+    color: white;
+    background-color: rgb(108, 199, 108);
+    border-radius: 20px;
+    height: 30px;
+    width: 250px;
+    padding: 5px;
+    text-align: center;
+  }
+  .mensaje-error{
+    margin: 20px 0px 0px 0px;
+    color: white;
+    background-color: rgb(238, 28, 28);
+    border-radius: 20px;
+    height:30px;
+    width: 250px;
+    padding: 5px;
+    text-align: center;
   }
