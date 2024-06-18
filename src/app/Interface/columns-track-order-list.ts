@@ -1,7 +1,9 @@
 export interface ColumnsTrackOrderList {
   id: number;
   CategoriaDeGastos: string;
+  idCategoriaGasto: number,
   cuenta: string;
+  idCuenta:number
   Monto: number;
   Descripcion: string;
   Fecha: string | null;

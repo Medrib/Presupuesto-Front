@@ -24,7 +24,7 @@ import { OrderTrackingSearchComponent } from './trackorder/order-tracking-list/o
 import { NuevoGastoComponent } from './trackorder/Gasto/nuevo-gasto/nuevo-gasto.component';
 import { GastoComponent } from './trackorder/Gasto/nuevo-gasto/gasto/gasto.component';
 import { CuentaComponent } from './cuenta/cuenta.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { GestorDeCuentasComponent } from './cuenta/gestor-de-cuentas/gestor-de-cuentas.component';
 import { TransferenciaComponent } from './trackorder/Gasto/nuevo-gasto/transferencia/transferencia.component';
 import { IngresoComponent } from './trackorder/Gasto/nuevo-gasto/ingreso/ingreso.component';
@@ -33,6 +33,7 @@ import { CategoriaDeGastosComponent } from './categoria-de-gastos/categoria-de-g
 import { PopupComponent } from './cuenta/popup/popup.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { PopupEditarComponent } from './popup-editar/popup-editar.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -72,6 +73,7 @@ import { PopupEditarComponent } from './popup-editar/popup-editar.component';
     HttpClientModule,
     MatDialogModule,
     MatFormFieldModule,
+    ReactiveFormsModule,
     TranslateModule.forRoot({
         loader: {
             provide: TranslateLoader,
@@ -86,8 +88,11 @@ import { PopupEditarComponent } from './popup-editar/popup-editar.component';
     ])
   ],
   
-  providers: [LanguageService], 
-  bootstrap: [AppComponent]
+  providers: [LanguageService, 
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: {} }
+  ], 
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
 
