@@ -40,6 +40,7 @@ select {
 }
 .botones-container {
     width: auto;
+    margin: 10px 0px 0px 0px;
 }
 
 button {
@@ -68,7 +69,7 @@ button:hover {
   }
 
   .mensaje-exitoso{
-    margin: 20px 0px 0px 0px;
+    margin: 10px 0px 10px 0px;
     color: white;
     background-color: rgb(108, 199, 108);
     border-radius: 20px;
@@ -78,7 +79,7 @@ button:hover {
     text-align: center;
   }
   .mensaje-error{
-    margin: 20px 0px 0px 0px;
+    margin: 10px 0px 10px 0px;
     color: white;
     background-color: rgb(238, 28, 28);
     border-radius: 20px;
