@@ -2,16 +2,16 @@
     <form>
         <div class=" campo">
             <h1>Agregar nuevo resumen</h1>
-            <label for="">Seleccione categoria: </label>
-            <select name="" id="">
-                <option value="">categoria 1</option>
-                <option value="">categoria 2</option>
+            <label for="categoria">Seleccione categoria:</label>
+            <select id="categoria" formControlName="idCategoriaGasto" (change)="seleccionarCategoria()" required>
+                <option *ngFor="let categoria of categorias" [value]="categoria.idCategoriaGasto">{{ categoria.nombre }}
+                </option>
             </select>
-            <br>
+            
             <label for="">Ingrese dinero inicial:</label>
             <input type="text">
             <div class="botones-container">
-                <button class="custom-button">Cancelar</button>
+                <button class="custom-button" (click)="afterClosed()">Cancelar</button>
                 <button class="custom-button">Guardar</button>
             </div>
         </div>

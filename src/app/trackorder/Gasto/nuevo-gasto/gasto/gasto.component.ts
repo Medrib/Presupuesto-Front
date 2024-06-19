@@ -33,7 +33,7 @@ export class GastoComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.initializeForm();
+    this.iniciarForm();
     this.MostrarCategoria();
     this.MostrarCuenta();
 
@@ -51,7 +51,7 @@ export class GastoComponent implements OnInit, OnDestroy {
     this.isEditMode = !!this.data?.gasto;
 
     if (this.isEditMode) {
-      this.patchFormValues();
+      this.formValues();
     }
   }
 
@@ -64,19 +64,19 @@ export class GastoComponent implements OnInit, OnDestroy {
     }
   }
 
-  initializeForm(): void {
+  iniciarForm(): void {
     this.gastoForm = this.fb.group({
       idCategoriaGasto: [this.isEditMode ? this.data.gasto.idCategoriaGasto : '', Validators.required,],
       descripcion: [this.isEditMode ? this.data.gasto.descripcion : '',Validators.required,],
-      fecha: [this.isEditMode ? this.formatDate(this.data.gasto.fecha) : new Date().toISOString().split('T')[0], Validators.required,],
+      fecha: [this.isEditMode ? this.formatoFecha(this.data.gasto.fecha) : new Date().toISOString().split('T')[0], Validators.required,],
       idCuenta: [this.isEditMode ? this.data.gasto.idCuenta : '', Validators.required,],
       monto: [this.isEditMode ? this.data.gasto.monto : '', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)],],
     });
   }
 
-  patchFormValues(): void {
+  formValues(): void {
     const gasto = this.data.gasto;
-    const fechaFormateada = this.formatDate(gasto.fecha);
+    const fechaFormateada = this.formatoFecha(gasto.fecha);
     console.log("Fecha: ",fechaFormateada);
     
 
@@ -89,12 +89,29 @@ export class GastoComponent implements OnInit, OnDestroy {
     });
   }
 
-  private formatDate(dateString: string): string {
-    const date = new Date(dateString);
-    const dia = ('0' + date.getDate()).slice(-2);
-    const mes = ('0' + (date.getMonth() + 1)).slice(-2);
-    const anio = date.getFullYear();
-    return `${anio}-${dia}-${mes}`;
+  private formatoFecha(dateString: string): string {
+    const parts = dateString.split('/');
+    if (parts.length !== 3) {
+      throw new Error('Formato de fecha inválido. Use DD/MM/YYYY');
+    }
+    
+    const dia = parseInt(parts[0], 10);
+    const mes = parseInt(parts[1], 10);
+    const anio = parseInt(parts[2], 10);
+  
+    if (isNaN(dia) || isNaN(mes) || isNaN(anio)) {
+      throw new Error('Formato de fecha inválido. Use DD/MM/YYYY');
+    }
+  
+    const date = new Date(anio, mes - 1, dia);
+  
+    if (isNaN(date.getTime())) {
+      throw new Error('Fecha inválida');
+    }
+
+    const formattedMes = ('0' + mes).slice(-2);
+    const formattedDia = ('0' + dia).slice(-2);
+    return `${anio}-${formattedMes}-${formattedDia}`;
   }
 
   MostrarCategoria() {
@@ -119,7 +136,7 @@ export class GastoComponent implements OnInit, OnDestroy {
         idCategoriaGasto: categoria.idCategoriaGasto,
       });
     } else {
-      console.error('Categoria no encontrada para el valor:', idCategoriaGasto);
+      // console.error('Categoria no encontrada para el valor:', idCategoriaGasto);
     }
   }
 
@@ -138,7 +155,7 @@ export class GastoComponent implements OnInit, OnDestroy {
         this.seleccionarCuenta();
       },
       (error) => {
-        console.error('Error al obtener cuentas:', error);
+        // console.error('Error al obtener cuentas:', error);
       }
     );
   }
@@ -151,7 +168,7 @@ export class GastoComponent implements OnInit, OnDestroy {
     if (cuentaSeleccion) {
       this.gastoForm.patchValue({ idCuenta: cuentaSeleccion.idCuenta });
     } else {
-      console.error('Cuenta no encontrada para el valor:', id);
+      // console.error('Cuenta no encontrada para el valor:', id);
     }
   }
 
@@ -170,9 +187,11 @@ export class GastoComponent implements OnInit, OnDestroy {
 
       if (this.isEditMode) {
         this.orderService.editarGasto(gasto).subscribe(
-          () => {
+          (response) => {
             this.envioMessage = 'Gasto editado correctamente!';
-            this.dialogRef.close(true);
+            setTimeout(() => {
+              this.dialogRef.close(true);
+            },1000);
           },
           (error) => {
             this.errorMessage = 'Hubo un error al editar el gasto!';
@@ -196,8 +215,10 @@ export class GastoComponent implements OnInit, OnDestroy {
         this.orderService.sendDataToServer(agregarGastoRequest).subscribe(
           (response: { data: string }) => {
             this.envioMessage = 'Gasto guardado correctamente!';
-            // setTimeout(() => {
-            // }, 3000);
+
+            setTimeout(() => {
+              this.envioMessage = '';
+            }, 3000);
 
             this.gastoForm.reset({
               idCategoriaGasto: '',
@@ -209,10 +230,18 @@ export class GastoComponent implements OnInit, OnDestroy {
           },
           (error) => {
             this.errorMessage = 'Hubo un error al guardar el gasto!';
-            console.error('Error al llamar a sendDataToServer:', error);
+            console.error('Error al guardar el gasto!', error);
           }
         );
       }
+    }
+  }
+
+  afterClosed(): void {
+    if (this.isEditMode) {
+      this.dialogRef.close(false);
+    } else {
+      this.router.navigate(['/']);
     }
   }
 

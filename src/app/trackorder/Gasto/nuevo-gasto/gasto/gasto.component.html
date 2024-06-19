@@ -24,7 +24,7 @@
     <div class="mensaje-error" *ngIf="errorMessage">{{ errorMessage }}</div>
 
     <div class="botones-container">
-      <button type="button">Cancelar</button>
+      <button type="button" (click)="afterClosed()">Cancelar</button>
       <button type="submit" [disabled]="gastoForm.invalid">{{ isEditMode ? 'Actualizar gasto' : 'Agregar gasto'}}</button>
     </div>
   </div>

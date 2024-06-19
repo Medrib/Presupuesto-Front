@@ -81,8 +81,4 @@ export class ResumenComponent {
       }
     });
   }
-  
-  afterClosed(): void {
-      this.dialogRef.close(false);
-  }
 }
