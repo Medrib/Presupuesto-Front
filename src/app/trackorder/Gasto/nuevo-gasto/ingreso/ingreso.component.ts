@@ -17,7 +17,6 @@ export class IngresoComponent implements OnInit {
   fecha!: string;
   descripcion!: string;
   ingresoForm!: FormGroup;
-<<<<<<< Updated upstream
   errorMessage: string = '';
   envioMessage: string = '';
 
@@ -38,42 +37,18 @@ export class IngresoComponent implements OnInit {
       fecha: [ new Date().toISOString().split('T')[0], Validators.required,],
       descripcion:  ['', Validators.required,],
       IDPresupuesto: [1, Validators.required,]
-=======
-  constructor(
-    private http: HttpClient,
-    private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private orderService : OrderService
-  ) { }
-  ngOnInit(): void {
-    this.iniciarDatos()
-    }
-
-  iniciarDatos():void{
-    this.ingresoForm = this.fb.group({
-      fecha: [ new Date().toISOString().split('T')[0], Validators.required,],
-      monto: [ '', Validators.required,],
-      descripcion:['',Validators.required]
->>>>>>> Stashed changes
     })
   }
   guardarDatos() {
     const data : AgregarIngresoRequest = {
-<<<<<<< Updated upstream
       Monto: this.ingresoForm.value.monto,
       Fecha: this.ingresoForm.value.fecha,
       Descripcion: this.ingresoForm.value.descripcion,
-=======
-      Monto: this.monto,
-      Fecha: this.fecha,
-      Descripcion: this.descripcion,
->>>>>>> Stashed changes
       IDPresupuesto : 1,
 
     };
     return this.orderService.postIngreso(data).pipe(
     ).subscribe(
-<<<<<<< Updated upstream
       (response: { data: string }) => {
         this.envioMessage = "Datos ingresados correctamente"
 
@@ -87,16 +62,6 @@ export class IngresoComponent implements OnInit {
           descripcion: '',
           IDPresupuesto : 1,
         })
-=======
-      response => {
-        this.ingresoForm.reset({
-          Monto: '',
-          Fecha:  new Date().toISOString().split('T')[0],
-          Descripcion: '',
-          IDPresupuesto : 1,
-        })
-        
->>>>>>> Stashed changes
       },
       error => {
         this.errorMessage = "Error al ingresar datos";
