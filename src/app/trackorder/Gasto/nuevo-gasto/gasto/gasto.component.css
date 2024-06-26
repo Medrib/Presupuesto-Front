@@ -26,9 +26,11 @@ textarea {
     width: 200px;
     box-sizing: border-box;
 }
-input{
+
+input {
     margin-bottom: 10px;
 }
+
 select {
     border: 2px solid black;
     border-radius: 10px;
@@ -36,8 +38,9 @@ select {
     font-weight: bold;
     width: 200px;
     box-sizing: border-box;
-   
+
 }
+
 .botones-container {
     width: auto;
     margin: 10px 0px 0px 0px;
@@ -57,18 +60,20 @@ button {
 button:hover {
     background-color: #0459bd;
 }
-.custom-edit-button{
+
+.custom-edit-button {
     background-color: rgb(46, 46, 199);
     padding: 0;
-    width: 40px; 
+    width: 40px;
     height: 25px;
-    margin: 20px 0px 20px 0px;  
-  }
-  .custom-edit-button:hover{
-    background-color: darkblue;
-  }
+    margin: 20px 0px 20px 0px;
+}
 
-  .mensaje-exitoso{
+.custom-edit-button:hover {
+    background-color: darkblue;
+}
+
+.mensaje-exitoso {
     margin: 10px 0px 10px 0px;
     color: white;
     background-color: rgb(108, 199, 108);
@@ -77,14 +82,15 @@ button:hover {
     width: 250px;
     padding: 5px;
     text-align: center;
-  }
-  .mensaje-error{
+}
+
+.mensaje-error {
     margin: 10px 0px 10px 0px;
     color: white;
     background-color: rgb(238, 28, 28);
     border-radius: 20px;
-    height:30px;
+    height: 30px;
     width: 250px;
     padding: 5px;
     text-align: center;
-  }
+}
