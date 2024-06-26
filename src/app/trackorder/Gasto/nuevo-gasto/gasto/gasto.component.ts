@@ -66,11 +66,11 @@ export class GastoComponent implements OnInit, OnDestroy {
 
   iniciarForm(): void {
     this.gastoForm = this.fb.group({
-      idCategoriaGasto: [this.isEditMode ? this.data.gasto.idCategoriaGasto : '', Validators.required,],
-      descripcion: [this.isEditMode ? this.data.gasto.descripcion : '',Validators.required,],
-      fecha: [this.isEditMode ? this.formatoFecha(this.data.gasto.fecha) : new Date().toISOString().split('T')[0], Validators.required,],
-      idCuenta: [this.isEditMode ? this.data.gasto.idCuenta : '', Validators.required,],
-      monto: [this.isEditMode ? this.data.gasto.monto : '', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)],],
+      idCategoriaGasto: ['', Validators.required,],
+      descripcion: ['',Validators.required,],
+      fecha: [new Date().toISOString().split('T')[0], Validators.required,],
+      idCuenta: ['', Validators.required,],
+      monto: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)],],
     });
   }
 
@@ -92,7 +92,7 @@ export class GastoComponent implements OnInit, OnDestroy {
   private formatoFecha(dateString: string): string {
     const parts = dateString.split('/');
     if (parts.length !== 3) {
-      throw new Error('Formato de fecha inválido. Use DD/MM/YYYY');
+      throw new Error('Formato de fecha invalido. Use DD/MM/YYYY');
     }
     
     const dia = parseInt(parts[0], 10);
@@ -100,18 +100,18 @@ export class GastoComponent implements OnInit, OnDestroy {
     const anio = parseInt(parts[2], 10);
   
     if (isNaN(dia) || isNaN(mes) || isNaN(anio)) {
-      throw new Error('Formato de fecha inválido. Use DD/MM/YYYY');
+      throw new Error('Formato de fecha invalido. Use DD/MM/YYYY');
     }
   
     const date = new Date(anio, mes - 1, dia);
   
     if (isNaN(date.getTime())) {
-      throw new Error('Fecha inválida');
+      throw new Error('Fecha invalida');
     }
 
-    const formattedMes = ('0' + mes).slice(-2);
-    const formattedDia = ('0' + dia).slice(-2);
-    return `${anio}-${formattedMes}-${formattedDia}`;
+    const formatoMes = ('0' + mes).slice(-2);
+    const formatoDia = ('0' + dia).slice(-2);
+    return `${anio}-${formatoMes}-${formatoDia}`;
   }
 
   MostrarCategoria() {
@@ -198,7 +198,7 @@ export class GastoComponent implements OnInit, OnDestroy {
             console.error('Error al editar el gasto:', error);
           }
         );
-      } else {
+      }else {
         const agregarGastoRequest: AgregarGastoRequest = {
           Fecha: this.gastoForm.value.fecha,
           Monto: this.gastoForm.value.monto,
