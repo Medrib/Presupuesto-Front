@@ -193,7 +193,7 @@ export class GastoComponent implements OnInit, OnDestroy {
               this.dialogRef.close(true);
             },1000);
           },
-          (error) => {
+          error => {
             this.errorMessage = 'Hubo un error al editar el gasto!';
             console.error('Error al editar el gasto:', error);
           }
@@ -226,11 +226,14 @@ export class GastoComponent implements OnInit, OnDestroy {
               fecha: new Date().toISOString().split('T')[0],
               idCuenta: '',
               monto: '',
-            });
+            })
           },
-          (error) => {
-            this.errorMessage = 'Hubo un error al guardar el gasto!';
-            console.error('Error al guardar el gasto!', error);
+          error => {
+            this.errorMessage = "Error al ingresar datos";
+            console.error('Error al llamar al Servicio:', error);
+            setTimeout(() => {
+              this.errorMessage = '';
+            }, 3000);
           }
         );
       }
