@@ -1,7 +1,7 @@
 <div>
     <form>
         <div class=" campo">
-            <h1>Agregar nuevo resumen</h1>
+            <h1>Agregar un nuevo resumen</h1>
             <label for="categoria">Seleccione categoria:</label>
             <select id="categoria" formControlName="idCategoriaGasto" (change)="seleccionarCategoria()" required>
                 <option *ngFor="let categoria of categorias" [value]="categoria.idCategoriaGasto">{{ categoria.nombre }}
