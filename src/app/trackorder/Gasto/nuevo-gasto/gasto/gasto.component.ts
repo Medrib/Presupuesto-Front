@@ -119,7 +119,7 @@ export class GastoComponent implements OnInit, OnDestroy {
       (categorias: Categoria[]) => {
         this.categorias = categorias;
       },
-      (error) => {
+      (error) => {  
         console.error('Error al obtener categorías:', error);
       }
     );

@@ -1,24 +1,24 @@
-<form (ngSubmit)="guardarGasto()" class="formulario">
+<form [formGroup]="transferenciaForm" (ngSubmit)="guardarGasto()" class="formulario">
     <div class="campo">
         <h1>Transferencia</h1>
         <label for="fecha">Fecha:</label>
-        <input type="date" id="fecha" name="fecha" [(ngModel)]="nuevoGasto.fecha" required>
+        <input type="date" id="fecha" name="fecha" formControlName="fecha"  required>
     </div>
     <div class="campo">
         <label for="importe">Importe:</label>
-        <input type="text" id="importe" name="importe" [(ngModel)]="nuevoGasto.importe">
+        <input type="text" id="importe" name="importe" formControlName="importe" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
     </div>
     <div class="campo">
         <label for="categoria">De:</label>
-        <input type="text" id="categoria" name="categoria" [(ngModel)]="nuevoGasto.cuenta" required (focus)="abrirCuenta()">
+        <input type="text" id="categoria" name="categoria" formControlName="de"  required (focus)="abrirCuenta()">
     </div>
     <div class="campo">
         <label for="cuenta">A:</label>
-        <input type="text" id="cuenta" name="cuenta" [(ngModel)]="nuevoGasto.cuenta" required (focus)="abrirCuenta()">
+        <input type="text" id="cuenta" name="cuenta" formControlName="a"  required (focus)="abrirCuenta()">
     </div>
     <div class="campo">
         <label for="nota">Nota:</label>
-        <textarea id="nota" name="nota" [(ngModel)]="nuevoGasto.nota"></textarea>
+        <textarea id="nota" name="nota" formControlName="nota"></textarea>
     </div>
     <button type="submit">Guardar</button>
 </form>
