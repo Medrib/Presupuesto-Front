@@ -9,7 +9,7 @@
             </select>
             
             <label for="">Ingrese dinero inicial:</label>
-            <input type="text">
+            <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
             <div class="botones-container">
                 <button class="custom-button" (click)="afterClosed()">Cancelar</button>
                 <button class="custom-button">Guardar</button>

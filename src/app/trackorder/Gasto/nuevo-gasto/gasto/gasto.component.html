@@ -5,7 +5,7 @@
     <input type="date" id="fecha" formControlName="fecha" required>
 
     <label for="monto">Monto:</label>
-    <input type="text" id="monto" formControlName="monto" placeholder="Ingrese el importe" required>
+    <input type="text" id="monto" formControlName="monto" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Ingrese el importe" required>
 
     <label for="categoria">Categoria:</label>
     <select id="categoria" formControlName="idCategoriaGasto" (change)="seleccionarCategoria()" required>
