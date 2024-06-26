@@ -226,11 +226,12 @@ export class GastoComponent implements OnInit, OnDestroy {
               fecha: new Date().toISOString().split('T')[0],
               idCuenta: '',
               monto: '',
-            })
+            });
           },
           error => {
-            this.errorMessage = "Error al ingresar datos";
-            console.error('Error al llamar al Servicio:', error);
+            this.errorMessage = 'Hubo un error al guardar el gasto!';
+            console.error('Error al guardar el gasto!', error);
+
             setTimeout(() => {
               this.errorMessage = '';
             }, 3000);
