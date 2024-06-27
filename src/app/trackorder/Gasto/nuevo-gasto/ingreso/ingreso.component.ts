@@ -5,6 +5,7 @@ import { AgregarIngresoRequest } from '../../../../Interface/agregarIngresoReque
 import { tap } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ingreso',
@@ -24,7 +25,8 @@ export class IngresoComponent implements OnInit {
     private http: HttpClient,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private orderService : OrderService
+    private orderService : OrderService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -35,7 +37,7 @@ export class IngresoComponent implements OnInit {
     this.ingresoForm = this.fb.group({
       monto:  ['', Validators.required,],
       fecha: [ new Date().toISOString().split('T')[0], Validators.required,],
-      descripcion:  ['', Validators.required,],
+      descripcion:  ['',],
       IDPresupuesto: [1, Validators.required,]
     })
   }
@@ -77,4 +79,6 @@ export class IngresoComponent implements OnInit {
     this.envioMessage = '';
     this.errorMessage = '';
   }
+  afterClosed(): void {
+  this.router.navigate(['/OrderTrackingList']);}
 }

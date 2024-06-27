@@ -67,7 +67,7 @@ export class GastoComponent implements OnInit, OnDestroy {
   iniciarForm(): void {
     this.gastoForm = this.fb.group({
       idCategoriaGasto: ['', Validators.required,],
-      descripcion: ['',Validators.required,],
+      descripcion: ['',],
       fecha: [new Date().toISOString().split('T')[0], Validators.required,],
       idCuenta: ['', Validators.required,],
       monto: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)],],
@@ -245,7 +245,7 @@ export class GastoComponent implements OnInit, OnDestroy {
     if (this.isEditMode) {
       this.dialogRef.close(false);
     } else {
-      this.router.navigate(['/']);
+      this.router.navigate(['/OrderTrackingList']);
     }
   }
 
