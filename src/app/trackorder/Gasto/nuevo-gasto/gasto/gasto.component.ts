@@ -118,8 +118,10 @@ export class GastoComponent implements OnInit, OnDestroy {
     this.orderService.getCategories().subscribe(
       (categorias: Categoria[]) => {
         this.categorias = categorias;
+        console.log("All categories: ",categorias);
+        
       },
-      (error) => {  
+      (error) => {
         console.error('Error al obtener categorías:', error);
       }
     );
@@ -127,16 +129,16 @@ export class GastoComponent implements OnInit, OnDestroy {
 
   seleccionarCategoria(): void {
     const idCategoriaGasto = this.gastoForm.get('idCategoriaGasto')?.value;
+    console.log("Categoria id: ",idCategoriaGasto);
+    
 
-    const categoria = this.categorias.find(
-      (c) => c.idCategoriaGasto === idCategoriaGasto
-    );
+    const categoria = this.categorias.find((c) => c.idCategoriaGasto == idCategoriaGasto);
     if (categoria) {
       this.gastoForm.patchValue({
         idCategoriaGasto: categoria.idCategoriaGasto,
       });
     } else {
-      // console.error('Categoria no encontrada para el valor:', idCategoriaGasto);
+      console.error('Categoria no encontrada para el valor:', idCategoriaGasto);
     }
   }
 
@@ -193,7 +195,7 @@ export class GastoComponent implements OnInit, OnDestroy {
               this.dialogRef.close(true);
             },1000);
           },
-          error => {
+          (error) => {
             this.errorMessage = 'Hubo un error al editar el gasto!';
             console.error('Error al editar el gasto:', error);
           }
@@ -207,8 +209,7 @@ export class GastoComponent implements OnInit, OnDestroy {
           CuentaName:this.obtenerCuenta.find((c) => c.idCuenta === this.gastoForm.value.idCuenta)?.nombre || '',
           IDPresupuesto: 1,
           IDCategoriaGasto: this.gastoForm.value.idCategoriaGasto,
-          CategoriaGastoName:
-            this.categorias.find((c) => c.idCategoriaGasto === this.gastoForm.value.idCategoriaGasto)?.nombre || '',
+          CategoriaGastoName:this.categorias.find((c) => c.idCategoriaGasto === this.gastoForm.value.idCategoriaGasto)?.nombre || '',
           PresupuestoName: '',
         };
 
@@ -228,7 +229,7 @@ export class GastoComponent implements OnInit, OnDestroy {
               monto: '',
             });
           },
-          error => {
+          (error) => {
             this.errorMessage = 'Hubo un error al guardar el gasto!';
             console.error('Error al guardar el gasto!', error);
 
