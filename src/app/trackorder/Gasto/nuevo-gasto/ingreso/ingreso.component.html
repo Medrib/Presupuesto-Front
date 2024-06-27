@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 <div class="contenedor-formulario">
     <form [formGroup]="ingresoForm" (ngSubmit)="guardarDatos()">
         <div class="campo">
@@ -23,27 +22,4 @@
             <button type="submit">Guardar</button>
         </div>
     </form>
-=======
-<div class="contenedor-formulario">
-    <form [formGroup]="ingresoForm" (ngSubmit)="guardarDatos()">
-        <div class="campo">
-            <h1>Nuevo ingreso</h1>
-            <label for="monto">Monto:</label>
-            <input type="number" id="monto" formControlName="monto" name="monto" required>
-        </div>
-        <div class="campo">
-            <label for="fecha">Fecha:</label>
-            <input type="date" id="fecha" formControlName="fecha" required>
-        </div>
-        <div class="campo">
-            <label for="descripcion">Descripción:</label>
-            <input type="text" id="descripcion" formControlName="descripcion" name="descripcion"  required>
-        </div>
-
-        <div class="mensaje-exitoso" *ngIf="envioMessage">{{ envioMessage }}</div>
-        <div class="mensaje-error" *ngIf="errorMessage">{{ errorMessage }}</div>
-        
-        <button type="submit">Guardar</button>
-    </form>
->>>>>>> Stashed changes
 </div>
