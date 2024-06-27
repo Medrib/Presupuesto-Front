@@ -1,13 +1,33 @@
+.botones-container {
+    width: auto;
+    margin: 10px 0px 0px 0px;
+}
+
 button {
     border: none;
     border-radius: 20px;
     padding: 10px 20px;
     font-weight: bold;
+    color: white;
+    background-color: #0366d6;
+    cursor: pointer;
+    margin-right: 10px;
 }
 
-button[type="submit"] {
-    background-color: blue;
-    color: white;
+button:hover {
+    background-color: #0459bd;
+}
+
+.custom-edit-button {
+    background-color: rgb(46, 46, 199);
+    padding: 0;
+    width: 40px;
+    height: 25px;
+    margin: 20px 0px 20px 0px;
+}
+
+.custom-edit-button:hover {
+    background-color: darkblue;
 }
 
 input[type="text"],

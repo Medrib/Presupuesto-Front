@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { CuentaComponent } from 'src/app/cuenta/cuenta.component';
 
 @Component({
@@ -19,6 +20,7 @@ export class TransferenciaComponent implements OnInit{
     private dialogService: MatDialog,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private router: Router
   ){
     this.dialog = dialogService;
   }
@@ -30,7 +32,7 @@ export class TransferenciaComponent implements OnInit{
       importe:['',Validators.required,],
       de:['',Validators.required,],
       a:['',Validators.required,],
-      nota:['',Validators.required,],
+      nota:['',],
       fecha: [ new Date().toISOString().split('T')[0], Validators.required,],
     })
   }
@@ -47,4 +49,6 @@ export class TransferenciaComponent implements OnInit{
         width: '400px', // Ancho del popup
       }); 
     }}
+    afterClosed(): void {
+      this.router.navigate(['/OrderTrackingList']);}
 }

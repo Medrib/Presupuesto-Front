@@ -15,7 +15,7 @@ import { CategoriaDeGastosComponent } from './categoria-de-gastos/categoria-de-g
 
 const routes: Routes = [
      
-    { path: '', component: OrderTrackingListComponent},
+    { path: '', component: LoginComponent},
     { path:'GestionDeStock', component: GestionDeStockComponent},
     { path:'OrderTracking', component: OrderTrackingComponent},
     { path:'Resumen', component: ResumenComponent},
@@ -25,7 +25,8 @@ const routes: Routes = [
     { path:'transferencia', component: TransferenciaComponent},
     { path:'ingreso', component: IngresoComponent},
     { path:'categoria', component: CategoriaComponent},
-    { path:'categoriaDeGastos', component: CategoriaDeGastosComponent}
+    { path:'categoriaDeGastos', component: CategoriaDeGastosComponent},
+    {path:'**',redirectTo:'',pathMatch:'full'}
 
 ]
 @NgModule({

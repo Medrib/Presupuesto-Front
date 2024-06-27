@@ -84,6 +84,7 @@ import { NuevoResumenComponent } from './nuevo-resumen/nuevo-resumen.component';
       { path: 'login', component: LoginComponent },
       { path: 'header', component: HeaderComponent },
       
+      
     ])
   ],
   

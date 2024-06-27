@@ -4,21 +4,30 @@
         <label for="fecha">Fecha:</label>
         <input type="date" id="fecha" name="fecha" formControlName="fecha"  required>
     </div>
+
     <div class="campo">
         <label for="importe">Importe:</label>
         <input type="text" id="importe" name="importe" formControlName="importe" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
     </div>
+
     <div class="campo">
         <label for="categoria">De:</label>
         <input type="text" id="categoria" name="categoria" formControlName="de"  required (focus)="abrirCuenta()">
     </div>
+
     <div class="campo">
         <label for="cuenta">A:</label>
         <input type="text" id="cuenta" name="cuenta" formControlName="a"  required (focus)="abrirCuenta()">
     </div>
+
     <div class="campo">
         <label for="nota">Nota:</label>
         <textarea id="nota" name="nota" formControlName="nota"></textarea>
     </div>
-    <button type="submit">Guardar</button>
+
+    <div class="botones-container">
+        <button type="button" (click)="afterClosed()">Cancelar</button>
+        <button type="submit">Guardar</button>
+    </div>
+
 </form>

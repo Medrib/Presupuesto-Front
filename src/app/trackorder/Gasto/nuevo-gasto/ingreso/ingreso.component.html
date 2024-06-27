@@ -3,7 +3,7 @@
         <div class="campo">
             <h1>Nuevo ingreso</h1>
             <label for="monto">Monto:</label>
-            <input type="number" id="monto" formControlName="monto" name="monto" required>
+            <input type="text" id="monto" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Ingrese el importe" formControlName="monto" name="monto" required>
         </div>
         <div class="campo">
             <label for="fecha">Fecha:</label>
@@ -17,6 +17,9 @@
         <div class="mensaje-exitoso" *ngIf="envioMessage">{{ envioMessage }}</div>
         <div class="mensaje-error" *ngIf="errorMessage">{{ errorMessage }}</div>
         
-        <button type="submit">Guardar</button>
+        <div class="botones-container">
+            <button type="button" (click)="afterClosed()">Cancelar</button>
+            <button type="submit">Guardar</button>
+        </div>
     </form>
 </div>
