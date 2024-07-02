@@ -16,8 +16,6 @@
   body {
     font-family: Arial, sans-serif;
     background-color: #c1bbbb;
-    margin: 0;
-    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,6 +24,10 @@
 
 .container {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 80px;
 }
 
 input[type="text"],
@@ -43,56 +45,68 @@ input[type="password"]:hover {
 }
 
 .btn {
-    padding: 5px 140px;
+    padding: 5px;
     border: none;
     border-radius: 20px;
     background-color: #6591ee;
-    border: 2px solid #111111;
     color: #fff;
     font-size: 16px;
     cursor: pointer;
-    margin: 30px 0;
+    margin: 10px 0px 0px 10px;
     font-weight: bold;
+    width: 250px;
 }
 
 .btn:hover {
-    background-color: #50bbdb;
+    background-color: #1e4aa1;
 }
-.separator {
-    margin: px 0;
-    position: relative;
-}
-.additional-button {
-    padding: 5px 80px;
+
+.alta-button{
+    padding: 5px;
     border: none;
     border-radius: 20px;
-    background-color: #beb9b9;
-    border: 2px solid #807d7d;
+    background-color: #1e4aa1;
     color: #fff;
     font-size: 16px;
     cursor: pointer;
-    margin: 30px 0;
+    margin: 10px 0px 0px 10px;
+    font-weight: bold;
+    width: 150px;
+}
+
+.alta-button:hover{
+    background-color: #3187c1;
+}
+
+p a {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0px 0px 10px;
+    color: rgb(45, 137, 173);
     font-weight: bold;
 }
-p a {
-    color: rgb(100, 13, 22); /* Color del texto */
-    font-weight: bold; /* Texto en negrita */
+
+.mensaje-exitoso {
+    margin: 10px 0px 10px 0px;
+    color: white;
+    background-color: rgb(108, 199, 108);
+    border-radius: 20px;
+    height: 30px;
+    width: 250px;
+    padding: 5px;
+    text-align: center;
 }
 
-p {
-    margin-top: 10px; 
-    margin-left: 400px; 
-    text-align: left;
-}
-.alta-usuario {
-    margin-top: -10px; /* Ajusta este valor según lo desees */
-    margin-left: 480px; /* Ajusta este valor según lo desees */
-    text-align: left;
-}
+.mensaje-error {
+    margin: 10px 250px 10px 250px;
+    color: white;
+    background-color: rgb(238, 28, 28);
+    border-radius: 20px;
+     
+    padding: 5px;
 
-.container__login{
+    text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 90%;
 }
