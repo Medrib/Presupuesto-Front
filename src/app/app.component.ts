@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-// import { GridOptions } from 'ag-grid-community';
 
 @Component({
   selector: 'app-root',
@@ -12,12 +11,12 @@ export class AppComponent {
   title = 'Medrib';
   showHeader: boolean = true;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private cdr: ChangeDetectorRef) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.showHeader = !event.url.includes('login');
+        this.cdr.detectChanges(); // Forzar la detección de cambios aquí
       }
     });
   }
 }
-

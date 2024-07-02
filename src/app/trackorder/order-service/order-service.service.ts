@@ -13,11 +13,13 @@ import { cuentaDatos } from 'src/app/Interface/obtenerCuenta';
 import { ColumnsTrackOrderList } from 'src/app/Interface/columns-track-order-list';
 import { GastoComponent } from '../Gasto/nuevo-gasto/gasto/gasto.component';
 import { categoriaGasto } from 'src/app/Interface/categoriaGasto';
+import { UsuarioRequest } from 'src/app/Interface/UsuarioRequest';
+import { CreateUsuarioRequest } from 'src/app/Interface/CreateUsuarioRequest';
 
 
 @Injectable({
   providedIn: 'root',
-})
+  })
 export class OrderService {
   searchKeyword$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   envioCategoria$: Subject<Categoria> = new Subject<Categoria>();
@@ -176,5 +178,22 @@ export class OrderService {
 
   obtenerGasto(): Observable<AgregarGastoRequest[]> {
     return this.http.get<AgregarGastoRequest[]>('https://localhost:7026/gastos');
-  }  
+  } 
+
+  UsuarioRequest(
+    UsuarioRequest: UsuarioRequest
+  ): Observable<{ data: string }> {
+    return this.http.post<{ data: string }>(
+      'https://localhost:7026/gastos/login',
+      UsuarioRequest
+    );
+  }
+  CreateUsuarioRequest(
+    nuevoUsuario: CreateUsuarioRequest
+  ): Observable<{ data: string }> {
+    return this.http.post<{ data: string }>(
+      'https://localhost:7026/gastos/agregarUsuario',
+      nuevoUsuario
+    );
+  }
 } 
