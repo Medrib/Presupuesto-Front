@@ -2,10 +2,14 @@
 </div>
 
 <div class="container">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="formulario">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <h1>Bienvenido</h1>
-        <input type="text" name="username" placeholder="Email" formControlName="CorreoElectronico" required><br>
-        <input type="password" name="password" placeholder="Contraseña"  formControlName="Contraseña"required><br>
+        <div>
+            <input type="text" name="username" placeholder="Email" formControlName="CorreoElectronico" required>
+        </div>
+        <div>
+            <input type="password" name="password" placeholder="Contraseña"  formControlName="Contraseña"required>
+        </div>
         
         <div class="mensaje-exitoso" *ngIf="envioMessage">{{ envioMessage }}</div>
         <div class="mensaje-error" *ngIf="errorMessage">{{ errorMessage }}</div>
@@ -13,10 +17,10 @@
         <button type="submit" class="btn" >Acceder</button>
         
         <p><a href="#">He olvidado mi contraseña</a></p>
-        
-        
-        <button class="alta-button" (click)="crearUsuario">Alta de usuario</button>
     </form>
+    <div>
+        <button class="alta-button" (click)="crearUsuario()">Crear de usuario</button>
+    </div>
 </div>
  
    

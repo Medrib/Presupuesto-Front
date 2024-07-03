@@ -66,7 +66,7 @@ export class ResumenComponent {
     this.paginacion(this.pageIndex, this.pageSize);
   } 
 
-  abrirPopupEditar(element: columnsResumen): void {    
+  agregarPresupuesto(element: columnsResumen): void {    
     const dialogRef = this.dialog.open(NuevoResumenComponent, {
       width: '500px',
       height: '500px',

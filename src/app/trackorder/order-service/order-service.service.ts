@@ -188,7 +188,7 @@ export class OrderService {
       UsuarioRequest
     );
   }
-  CreateUsuarioRequest(
+  CreateUsuario(
     nuevoUsuario: CreateUsuarioRequest
   ): Observable<{ data: string }> {
     return this.http.post<{ data: string }>(
