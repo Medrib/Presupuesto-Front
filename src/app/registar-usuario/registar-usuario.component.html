@@ -1,0 +1,22 @@
+<div class="container">
+    <form [formGroup]="registerUser" (ngSubmit)="onSubmit()">
+        <h1>Registre su usuario</h1>
+        <div>
+            <input type="text" name="name" placeholder="Nombre" formControlName="Nombre" required="">
+        </div>
+        <div>
+            <input type="text" name="username" placeholder="Email" formControlName="CorreoElectronico" required="">
+        </div>
+        <div>
+            <input type="password" name="password" placeholder="Contraseña" formControlName="Contraseña" required="">
+        </div>
+        
+        <div class="mensaje-exitoso" *ngIf="envioMessage">{{ envioMessage }}</div>
+        <div class="mensaje-error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+        <button class="alta-button" (click)="afterClosed()">Cancelar</button>
+        <button class="alta-button" type="submit">Registrar usuario</button>
+        
+    </form>
+</div>
+

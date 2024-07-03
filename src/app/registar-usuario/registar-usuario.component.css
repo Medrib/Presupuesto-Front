@@ -1,0 +1,75 @@
+.container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 60%;
+    padding: 10px;
+    margin: 15px 0;
+    border: 1px solid #a7a9ac;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input[type="text"]:hover,
+input[type="password"]:hover {
+    background-color: rgb(213, 222, 246);
+}
+
+.btn {
+    padding: 5px;
+    border: none;
+    border-radius: 20px;
+    background-color: #6591ee;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px 0 0 10px;
+    font-weight: bold;
+    width: 250px;
+}
+
+.btn:hover {
+    background-color: #1e4aa1;
+}
+
+.alta-button {
+    padding: 5px;
+    border: none;
+    border-radius: 20px;
+    background-color: #1e4aa1;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px 0 0 10px;
+    font-weight: bold;
+    width: 150px;
+}
+
+.alta-button:hover {
+    background-color: #3187c1;
+}
+
+.mensaje-exitoso {
+    margin: 10px 30px;
+    color: white;
+    background-color: rgb(108, 199, 108);
+    border-radius: 20px;
+    height: 30px;
+    width: 250px;
+    padding: 5px;
+}
+
+.mensaje-error {
+    margin: 10px 30px;
+    color: white;
+    background-color: rgb(238, 28, 28);
+    border-radius: 20px;
+    padding: 5px;
+}

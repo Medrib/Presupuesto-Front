@@ -34,6 +34,7 @@ import { PopupComponent } from './cuenta/popup/popup.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NuevoResumenComponent } from './nuevo-resumen/nuevo-resumen.component';
+import { RegistarUsuarioComponent } from './registar-usuario/registar-usuario.component';
 
 
 
@@ -58,7 +59,8 @@ import { NuevoResumenComponent } from './nuevo-resumen/nuevo-resumen.component';
     CategoriaComponent,
     CategoriaDeGastosComponent,
     PopupComponent,
-    NuevoResumenComponent,  
+    NuevoResumenComponent,
+    RegistarUsuarioComponent,
   ],
   imports: [
     BrowserModule,
