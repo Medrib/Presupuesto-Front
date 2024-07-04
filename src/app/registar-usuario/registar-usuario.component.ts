@@ -29,8 +29,8 @@ export class RegistarUsuarioComponent implements OnInit {
   iniciarForm(): void {
     this.registerUser = this.fb.group({
       Nombre: ['', Validators.required],
-      CorreoElectronico: ['', Validators.required,],
-      Contraseña: ['',Validators.required,],
+      CorreoElectronico: ['', Validators.required],
+      Contraseña: ['',Validators.required],
     });
   }
 
@@ -40,6 +40,7 @@ export class RegistarUsuarioComponent implements OnInit {
       setTimeout(() => {
         this.errorMessage = '';
       }, 3000);
+      return
       
     }
     
