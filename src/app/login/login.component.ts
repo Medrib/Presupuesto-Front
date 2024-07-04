@@ -54,9 +54,10 @@ export class LoginComponent implements OnInit {
         (error) => {
           this.errorMessage = 'No se encontro al usuario!';
           console.error('No se encontro al usuario!:', error);
+
           setTimeout(() => {
             this.errorMessage = '';
-          }, 5000);
+          }, 3000);
         }
         )
     } 

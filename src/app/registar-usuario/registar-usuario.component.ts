@@ -40,7 +40,7 @@ export class RegistarUsuarioComponent implements OnInit {
       setTimeout(() => {
         this.errorMessage = '';
       }, 3000);
-      return;
+      
     }
     
     this.registrarUsuario();
@@ -71,9 +71,11 @@ export class RegistarUsuarioComponent implements OnInit {
         this.errorMessage = 'Hubo un error al crear el usuario!';
         console.error('Error al crear el usuario!', error);
 
-        setTimeout(() => {
-          this.errorMessage = '';
-        }, 3000);
+        this.registerUser.reset({
+          Nombre: '',
+          CorreoElectronico: '',
+          Contraseña: '',
+        });
       }
     );
   }

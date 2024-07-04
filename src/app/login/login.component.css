@@ -86,27 +86,12 @@ p a {
     font-weight: bold;
 }
 
-.mensaje-exitoso {
-    margin: 10px 0px 10px 0px;
-    color: white;
-    background-color: rgb(108, 199, 108);
-    border-radius: 20px;
-    height: 30px;
-    width: 250px;
-    padding: 5px;
-    text-align: center;
-}
+
 
 .mensaje-error {
-    margin: 10px 550px 10px 550px;
+    margin: 0px 440px 0px 450px;
     color: white;
     background-color: rgb(238, 28, 28);
     border-radius: 20px;
-     
     padding: 5px;
-
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
