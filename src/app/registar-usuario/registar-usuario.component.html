@@ -1,5 +1,5 @@
 <div class="container">
-    <form [formGroup]="registerUser" (ngSubmit)="onSubmit()">
+    <form [formGroup]="registerUser">
         <h1>Registre su usuario</h1>
         <div>
             <input type="text" name="name" placeholder="Nombre" formControlName="Nombre" required="">
@@ -13,10 +13,15 @@
         
         <div class="mensaje-exitoso" *ngIf="envioMessage">{{ envioMessage }}</div>
         <div class="mensaje-error" *ngIf="errorMessage">{{ errorMessage }}</div>
-
-        <button class="alta-button" (click)="afterClosed()">Cancelar</button>
-        <button class="alta-button" type="submit">Registrar usuario</button>
         
+        <div class="button-container">
+            <button class="alta-button" (click)="afterClosed()">Cancelar</button>
+            <button class="alta-button" type="submit" (click)="onSubmit()">Registrar usuario</button>
+        </div>
     </form>
+    <div>
+       
+    </div>
+    
 </div>
 

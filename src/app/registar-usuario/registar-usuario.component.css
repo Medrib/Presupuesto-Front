@@ -50,10 +50,17 @@ input[type="password"]:hover {
     margin: 10px 0 0 10px;
     font-weight: bold;
     width: 150px;
+   
 }
 
 .alta-button:hover {
     background-color: #3187c1;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+
 }
 
 .mensaje-exitoso {
