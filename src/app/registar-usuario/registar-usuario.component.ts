@@ -29,8 +29,8 @@ export class RegistarUsuarioComponent implements OnInit {
   iniciarForm(): void {
     this.registerUser = this.fb.group({
       Nombre: ['', Validators.required],
-      CorreoElectronico: ['', Validators.required],
-      Contraseña: ['',Validators.required],
+      CorreoElectronico: ['', Validators.required,],
+      Contraseña: ['',Validators.required,],
     });
   }
 
@@ -39,9 +39,8 @@ export class RegistarUsuarioComponent implements OnInit {
       this.errorMessage = 'Complete los campos correctamente.';
       setTimeout(() => {
         this.errorMessage = '';
-      }, 3000);
-      return
-      
+      }, 3000)
+      return;
     }
     
     this.registrarUsuario();
@@ -56,6 +55,7 @@ export class RegistarUsuarioComponent implements OnInit {
 
     this.orderService.CreateUsuario(usuario).subscribe(
       (response: { data: string }) => {
+        
         this.envioMessage = "Usuario creado exitosamente";
 
         this.registerUser.reset({
@@ -69,14 +69,12 @@ export class RegistarUsuarioComponent implements OnInit {
         },2000);
       },
       (error) => {
-        this.errorMessage = 'Hubo un error al crear el usuario!';
+        this.errorMessage = 'el mail ingresado ya esta en uso';
         console.error('Error al crear el usuario!', error);
 
-        this.registerUser.reset({
-          Nombre: '',
-          CorreoElectronico: '',
-          Contraseña: '',
-        });
+        setTimeout(() => {
+          this.errorMessage = '';
+        }, 3000);
       }
     );
   }

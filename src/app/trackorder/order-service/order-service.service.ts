@@ -92,7 +92,7 @@ export class OrderService {
     console.log('Request Params:', params.toString());
   
     return this.http.get<{ data: Categoria[], totalItems: number }>(
-      'https://localhost:7026/gastos/getCategory',
+      'https://localhost:7026/categoria/getCategory',
       { params }
     ).pipe(
       tap((response: any) => console.log('Response from service:', response))
@@ -130,7 +130,7 @@ export class OrderService {
     nuevoIngreso: AgregarIngresoRequest
   ): Observable<{ data: string }> {
     return this.http.post<{ data: string }>(
-      'https://localhost:7026/gastos/agregarIngreso',
+      'https://localhost:7026/ingresos/agregarIngreso',
       nuevoIngreso
     );
   }
@@ -139,27 +139,27 @@ export class OrderService {
     categoria: AgregarCategoriaRequest
   ): Observable<{ data: string }> {
     return this.http.post<{ data: string }>(
-      'https://localhost:7026/gastos/agregarCategoria',
+      'https://localhost:7026/categoria/agregarCategoria',
       categoria
     );
   }
   
   getCategories(): Observable<Categoria[]> {
     return this.http.get<Categoria[]>(
-      'https://localhost:7026/gastos/getCategory'
+      'https://localhost:7026/categoria/getCategory'
     );
   }
 
   insertCuenta(cuentas: cuentaDatos): Observable<{ data: string }> {
     return this.http.post<{ data: string }>(
-      'https://localhost:7026/gastos/agregarCuenta',
+      'https://localhost:7026/cuenta/agregarCuenta',
       cuentas
     );
   }
 
   getCuenta(): Observable<cuentaDatos[]> {
     return this.http.get<cuentaDatos[]>(
-      'https://localhost:7026/gastos/getCuenta'
+      'https://localhost:7026/cuenta/getCuenta'
     );
   }
   
@@ -184,7 +184,7 @@ export class OrderService {
     UsuarioRequest: UsuarioRequest
   ): Observable<{ data: string }> {
     return this.http.post<{ data: string }>(
-      'https://localhost:7026/gastos/login',
+      'https://localhost:7026/usuario/login',
       UsuarioRequest
     );
   }
@@ -192,7 +192,7 @@ export class OrderService {
     nuevoUsuario: CreateUsuarioRequest
   ): Observable<{ data: string }> {
     return this.http.post<{ data: string }>(
-      'https://localhost:7026/gastos/agregarUsuario',
+      'https://localhost:7026/usuario/agregarUsuario',
       nuevoUsuario
     );
   }
